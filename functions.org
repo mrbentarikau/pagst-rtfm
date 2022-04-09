@@ -16,6 +16,9 @@ Every function having both cases possible for an argument - ID\slash{}name, then
 - [[#member][Member]]
 - [[#mentions][Mentions]]
 - [[#message][Message]]
+- [[#miscellaneous][Miscellaneous]]
+- [[#role-functions][Role functions]]
+- [[#string-manipulation][String manipulation]]
 #+END_QUOTE
 
 * Channel
@@ -165,13 +168,12 @@ Shift operators implement arithmetic shifts if the left operand is a signed inte
 | ~onlineCount~                     | Returns the count of online users/members on current server.                                                                                |
 [[#table-of-contents][back to TOC]]
 * Mentions
-|------------------------------+--------------------------------------------------------------------------|
-| Function                     | Description                                                              |
-|------------------------------+--------------------------------------------------------------------------|
-| ~mentionEveryone~            | Mentions ~@everyone~.                                                    |
-| ~mentionHere~                | Mentions ~@here~.                                                        |
-| ~mentionRoleID~ roleID       | Mentions the role found with the provided ID.                            |
-| ~mentionRoleName~ "roleName" | Mentions the first role found with the provided name (case-insensitive). |
+|--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------+------------|
+| Function           | Description                                                                                                                                                 | PAGST      |
+|--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------+------------|
+| ~mentionEveryone~  | Mentions ~@everyone~.                                                                                                                                       |            |
+| ~mentionHere~      | Mentions ~@here~.                                                                                                                                           |            |
+| ~mentionRole~ role | Mentions the ~role~. Argument can be either role's ID or it's name. Replaces still working, but deprecated functions ~mentionRoleID~ and ~mentionRoleName~. | \checkmark |
 There is also .Mention method available for role structs/objects.
 ** Mentions section's snippets:
 #+begin_src go
@@ -251,3 +253,85 @@ There is also .Mention method available for role structs/objects.
     {{deleteMessage nil $mID 3}}
 #+END_SRC
 [[#table-of-contents][back to TOC]]
+* Miscellaneous
+*NB!*\\
+~if~, ~range~, ~try-catch~, ~while~, ~with~ actions are all covered here.
+
+|--------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------|
+| Function                                         | Description                                                                                                                                                                                                                                                                                                                                                                               | PAGST      |
+|--------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------|
+| ~adjective~                                      | Returns a random adjective.                                                                                                                                                                                                                                                                                                                                                               | \checkmark |
+| ~ccCounters~                                     | Returns all running counters for CC as a map (keys are there).                                                                                                                                                                                                                                                                                                                            |            |
+| ~cembed~ "embed fields and values"               | Function to generate embed inside custom command. [[https://docs.yagpdb.xyz/reference/custom-embeds#embeds-in-custom-commands][More in-depth here]].                                                                                                                                                                                                                                                                                                                     |            |
+| ~createTicket~ author topic                      | Creates a new ticket with the author and topic provided. Covered in its own section here.                                                                                                                                                                                                                                                                                                 |            |
+| ~cslice~, ~sdict~                                | These functions are covered in their own section here.                                                                                                                                                                                                                                                                                                                                    |            |
+| ~dict~ key1 value1 key2 value2 ...               | Creates an unordered collection of key-value pairs, a dictionary so to say. The number of parameters to form key-value pairs must be even. Keys and values can be of any type. Key is not restricted to string only as in case with ~sdict~. ~dict~ also has helper methods ~.Del~, ~.Get~, ~.HasKey~ and ~.Set~ and they function the same way as ~sdict~ ones discussed here.           |            |
+| ~exec~ "command" "arg" "arg" ...                 | Executes a PAGSTDB command (e.g. ~kick~, ~roll~ etc) in a custom command. ~exec~ can be run max 5 times per CC. If real command returns an embed - ~exec~ will return raw data of type /embed/, so you can use embed fields for better formatting. *NB!* This will not work for commands with paginated embed returns,  like ~un\nn~ commands! commands! ~exec~ syntax is explained [[#exec-syntax][here]]. |            |
+| ~execAdmin~ "command" "arg" "arg" ...            | Functions same way as ~exec~ but effectively runs the command as the bot user (PAGSTDB). This has essentially the same effect as if a user with the same permissions and roles as PAGSTDB ran the command.                                                                                                                                                                                |            |
+| ~hasPrefix~ string prefix                        | ~hasPrefix~ tests whether the given /string/ begins with prefix and returns /bool/. Example > ~{{hasPrefix "PAGSTDB" "PAG"}}~ returns ~true~.                                                                                                                                                                                                                                             |            |
+| ~hasSuffix~ string suffix                        | ~hasSuffix~ tests whether the given string ends with suffix and returns /bool/.                                                                                                                                                                                                                                                                                                           |            |
+| ~humanizeThousands~ arg (dotSeparator)           | This function places comma to separate groups of thousands of a number. ~arg~ can be /int/ or /string/, has to be a whole number, the optional ~dotSeparator~ argument is a /bool/ and defaults to ~false~, if set ~true~ thousands are separated by a dot, not comma.                                                                                                                    | \checkmark |
+| ~in~ list value                                  | Returns /bool/ true/false whether case-sensitive value is in a slice. ~{{in (cslice "PAGST" "member is cool") "pagst"}}~ returns ~false~.                                                                                                                                                                                                                                                 |            |
+| ~index~ arg ...keys                              | Returns the result by indexing its first argument ~arg~ with the following arguments, ~keys~. Each indexed item must be a /map/, /slice/ or /array/, indexed /string/ returns value in /uint8/. More than one positional ~keys~ can be used, in pseudo-code: index X 0 1 is equivalent to calling index (index X 0) 1                                                                     |            |
+| ~inFold~ list value                              | Similar to ~in~, but is case-insensitive. ~{{inFold (cslice "PAGST" "member is cool") "pagst"}}~ returns ~true~.                                                                                                                                                                                                                                                                          |            |
+| ~kindOf~ arg (flag)                              | This function helps to determine what kind of data type we are dealing with. flag part is a /bool/ and if set as ~true~ (~false~ is optional) returns the value where given ~arg~ points to. Example: ~{{kindOf cembed false}} and {{kindOf cembed true}}~ will return ~ptr and struct~.                                                                                                  |            |
+| ~len~ arg                                        | Returns the integer length of its argument. ~arg~ can be an array, slice, map, or string. ~{{len (cslice 1 2 3)}}~ returns ~3~.                                                                                                                                                                                                                                                           |            |
+| ~noun~                                           | Returns a random noun.                                                                                                                                                                                                                                                                                                                                                                    | \checkmark |
+| ~parseArgs~ numRequiredArgs errorMessage ...carg | Checks the arguments for a specific type. Has methods .Get and .IsSet. ~carg~ "type" "name" is required by ~parseArgs~ and it defines the type of arguments for ~parseArgs~ function. [[https://docs.yagpdb.xyz/commands/custom-commands#require-arguments][More in depth here]].                                                                                                                                                                                 |            |
+| ~sendTemplate~ channel templateName data         | Function sends a formulated template to another channel and returns messageID. Template definitions are discussed [[https://pkg.go.dev/text/template#hdr-Nested_template_definitions][here]]. Example snippets.                                                                                                                                                                                                                                                 |            |
+| ~sendTemplateDM~ templateName data               | Works the same way as function above. Only channel's name is not in the arguments. PAGSTDB will only DM the triggering user.                                                                                                                                                                                                                                                              |            |
+| ~seq~ start stop                                 | Creates a new slice of type /[]int/, beginning from start number, increasing in sequence and ending at stop (not included). ~{{seq -4 2}}~ returns a slice ~[ -4 -3 -2 -1 0 1 ]~. Sequence's max length is 100 000.                                                                                                                                                                       | \checkmark |
+| ~shuffle~ list                                   | Returns a shuffled, randomized version of a list/slice.                                                                                                                                                                                                                                                                                                                                                                                          |            |
+| ~sleep~ arg                                      | Pauses execution of template's action-structure inside custom command for max 60 seconds combined. Argument ~arg~ is an integer (whole number).                                                                                                                                                                                                                                                                                                                                                                                          |            |
+| ~sort~ slice (...args)                           |Sorts a slice with optional arguments. Numbers are sorted before strings. Arguments are presented in a ~sdict~ with keys having /bool/ values. Sort function is limited to 1/10 CC calls regular/premium. More about ~sort~ arguments [[#sort-arguments][here]].                                                                                                                                                                                                                                                                                                                             |  \checkmark |
+*** exec syntax
+:PROPERTIES:
+:CUSTOM_ID: exec-syntax
+:END:
+The syntax is ~exec~ "command" arguments - this means you format it the same way as you would type the command regularly, just without the prefix, e.g. if you want to clear 2 messages and avoiding the pinned message > ~{{exec "clear 2 -nopin"}}~, where ~command~ part is whole ~clear 2 -nopin~. If you change that number inside CC somewhere then you have to use arguments part of exec formatting > ~{{$x := 2}} {{exec "clear" $x "-nopin"}}~. Here ~clear~ is the ~command~ and it is followed by arguments, one variable ~$x~ and one string ~-nopin~. Last example is the same as ~{{exec (joinStr " " "clear" $x "-nopin")}}~ (also notice the space in joinStr separator).
+*** Sort arguments
+:PROPERTIES:
+:CUSTOM_ID: sort-arguments
+:END:
+#+BEGIN_SRC go
+Sort argument keys:
+"reverse" reverses the order if true.
+"subslices" makes the function return a set of subslices based on input type/kind if true.
+"Emptyslices" returns all possible slices if true, helpful for indexing.
+
+ * Example:
+   {{sort (cslice "YAGPDB" 42 "Alphabet" 111 33.3)
+          (sdict
+                  "reverse" true
+                  "subslices" true
+                  "emptyslices" false)}}
+   would return [111 42 33.3 YAGPDB Alphabet]
+#+END_SRC
+*** Miscellaneous snippets
+:PROPERTIES:
+:CUSTOM_ID: miscellaneous-snippets
+:END:
+#+BEGIN_SRC go
+ * sendTemplate example:
+   {{define "logsTemplate"}}This text will output on different channel, you can also use functions like {{currentTime}}.
+   {{.TemplateArgs}} would be additional data sent out. {{end}}
+   Now we call that "logs" in the same custom command.{{sendTemplate "logs" "logsTemplate" "PAGST members rule!"}}.
+#+END_SRC
+[[#table-of-contents][back to TOC]]
+* Role functions
+*NB!*\\
+Every ~role~ argument can be either role's ID or its name. ~Delay~ is always optional and in seconds. Deprecated functions having ID/Name pairs, like giveRoleID/Name still all work and follow their old logic.
+|--------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+------------|
+| Function                       | Description                                                                                                                                             | PAGST      |
+|--------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------+------------|
+| ~addRole~ role (delay)         | Adds the role to triggering user.                                                                                                                       | \checkmark |
+| ~getRole~ role                 | Returns a [[https://discord.com/developers/docs/topics/permissions#role-object][role object]] of type /*discordgo.Role/.                                                                                                        |            |
+| ~giveRole~ userID role (delay) | Gives a role to targeted userID.                                                                                                                        | \checkmark |
+| ~hasRole~  role                | Returns ~true~ if the triggerin user has the role.                                                                                                      | \checkmark |
+| ~removeRole~ role (delay)      | Removes the ~role~ from the user that triggered the command.                                                                                            | \checkmark |
+| ~roleAbove~ role1 role2        | Compares two role objects e.g. ~getRole~ returns and gives ~true/false~ is ~role1~ positioned higher than ~role2~ or not.                               |            |
+| ~setRoles~ userID roles        | Overwrites the roles of the given user using the slice of role IDs. IDs can be ints or strings. Empty slice would clear the roles of the targeted user. |            |
+| ~takeRole~ userID role (delay) | Takes away a role from the targeted userID.                                                                                                             | \checkmark |
+| ~targetHasRole~ userID role    | Returns ~true~ if the given user argument has the role.                                                                                                 | \checkmark |
+[[#table-of-contents][back to TOC]]
+* String manipulation
