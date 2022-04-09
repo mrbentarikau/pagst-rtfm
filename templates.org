@@ -42,7 +42,7 @@ If functions or methods are denoted with an accent, tilde ~, they are not yet de
 *Always put curly brackets around the data and "actions you perform" you want to formulate as a template* like this: ~{{.User.Username}}~
 This ~{{ ... }}~ syntax of having two curly brackets aka braces around context is necessary to form a template's control structure also known as an action with methods and functions stated below.
 
-*** Information
+*** NB!
 Templating system uses standard ASCII quotation marks: 0x22 > " for straight double quotes, 0x27 > 'for apostrophes and 0x60 ` for backticks; so make sure no "smart-quotes" are being used.
 
 * The Dot and Variables
@@ -66,7 +66,7 @@ A powerful component of templates is the ability to stack actions - like functio
 
 Example: ~{{randInt 41 | add 2}}~ would pipelinerandInt function's return to addition add as second parameter and it would be added to 2; this more simplified would be like {{40 | add 2}} with return 42. If written normally, it would be ~{{ add 2 (randInt 41) }}~. Same pipeline but using a variable is also useful one > ~{{$x:=40 | add 2}}~ would not return anything as printout, 40 still goes through pipeline to addition and 42 is stored to variable $x whereas ~{{($x:=40) | add 2}}~ would return 42 and store 40 to $x.
 
-*** Attention!
+*** NB!
 Pipes are useful in select cases to shorten code and in some cases improve readability, but they should not be overused. In most cases, pipes are unnecessary and cause a dip in readability that helps nobody.
 
 [[#table-of-contents][back to TOC]]
@@ -536,7 +536,7 @@ Database functions are covered in [[file:functions.org][functions]].
 | .ValueSize | Returns the entry's value size in bytes.                                                                                  | \checkmark{} |
 [[#table-of-contents][back to TOC]]
 * Tickets
-Attention!\\
+*NB!*\\
 Ticket functions are limited to 1 call per custom command for both normal and premium guilds.
 
 |-----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
