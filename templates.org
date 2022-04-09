@@ -304,7 +304,7 @@ Affected dot inside ~range~ is important because methods mentioned above in this
 
 Like ~if~, ~range~ is concluded with ~{{end}}~ action and declared variable scope inside range extends to that point.
 
-#+BEGIN_SRC
+#+BEGIN_SRC go
 {{/* range over a slice */}}
 {{ range $index, $element := cslice "PAGSTDB" "IS COOL!" }}
 {{ $index }} : {{ $element }} {{ end }}
@@ -319,7 +319,7 @@ Like ~if~, ~range~ is concluded with ~{{end}}~ action and declared variable scop
 Attention!\\
 Custom command response was longer than 2k (contact an admin on the server...)
 This is quite common error users will get whilst using range. Simple example to reproduce it:
-#+begin_src
+#+begin_src go
 {{ range seq 0 1000 }}
 {{ $x := . }}
 {{ end }}
@@ -336,7 +336,7 @@ Similar to an ~if~ action with an associated ~else~ branch, the ~try-catch~ cons
 
 To check for a specific error, one can use the ~Error~ method. All errors have a method ~Error~ which is specified to return a message describing the reason that the error was thrown. When used in conjunction with a comparison function, more granular error-checking can be achieved.
 
-#+BEGIN_SRC
+#+BEGIN_SRC go
 {{ try }}
     {{ $items := (dbGet 0 "some_entry").Value }}
     {{ dbSet 0 "some_entry" ($items.Append 1) }} {{/* can return error */}}
@@ -355,7 +355,7 @@ To check for a specific error, one can use the ~Error~ method. All errors have a
 ** While
 ~while~ iterates as long as the specified condition is ~true~, or more generally evaluates to a non-empty value. The dot (~.~) is not affected, unlike with the ~range~ action. Analogous to ~range~, ~while~ introduces a new scope which is concluded by the ~end~ action.
 
-#+BEGIN_SRC
+#+BEGIN_SRC go
 {{/* efficiently search for an element in a sorted slice using binary search */}}
 {{ $xs := cslice 1 3 5 6 6 8 10 12 }}
 {{ $needle := 8 }}
@@ -385,7 +385,7 @@ To check for a specific error, one can use the ~Error~ method. All errors have a
 Affected dot inside ~with~ is important because methods mentioned above in this documentation: ~.Server.ID~, ~.Message.Content~ etc are all already using the dot on the pipeline and if they are not carried over to the ~with~ control structure directly, these fields do not exists and template will error out. Getting those values inside ~with~ and also ~range~ action would need ~$.User.ID~ for example.
 Like ~if~ and ~range~ actions, ~with~ is concluded using ~{{end}}~ and variable scope extends to that point.
 
-#+BEGIN_SRC
+#+BEGIN_SRC go
 {{/* Shows the scope and how dot is affected by object's value in pipeline */}}
 {{ $x := "42" }} {{ with and ($z:= seq 0 5) ($x := seq 0 10) }}
 len $x: `{{ len $x }}`
@@ -417,7 +417,7 @@ Custom Types section discusses functions that initialize values carrying those /
 
 Attention!\\
 *Reference type-like behaviour*: Slices and dictionaries in CCs exhibit reference-type like behavior, which may be undesirable in certain situations. That is, if you have a variable $x that holds a slice/dictionary, writing $y := $x and then mutating $y via Append/Set/Del/etc. will modify $x as well. For example:
-#+BEGIN_SRC
+#+BEGIN_SRC go
 {{ $x := sdict "k" "v" }}
 {{ $y := $x }}
 {{ $y.Set "k" "v2" }} {{/* modify $y */}}
@@ -427,7 +427,7 @@ that is, modifying $y changed $x too. */}}
 #+END_SRC
 
 If this behaviour is undesirable, copy the slice/dictionary via cslice.AppendSlice or a range + Set call .
-#+BEGIN_SRC
+#+BEGIN_SRC go
 {{ $x := sdict "k" "v" }}
 {{ $y := sdict }}
 {{ range $k, $v := $x }} {{- $y.Set $k $v -}} {{ end }}
@@ -452,7 +452,7 @@ Note that this performs a shallow copy, not a deep copy - if you want the latter
 | .HasKey "key"    | Returns /bool/ true\slash{}false regarding whether the key is set or not e.g. ~{{(sdict "PAGSTDB" "is cool").HasKey "PAGSTDB"}}~ would return ~true~. |
 | .Set "key" value | Changes\slash{}sets given key to a new value or creates new one, if no such key exists in /sdict/.                                                    |
 
-#+BEGIN_SRC
+#+BEGIN_SRC go
 Creating sdict: {{ $x := sdict "color1" "green" "color2" "red" }} **{{ $x }}**
 Retrieving key "color2": **{{ $x.Get "color2" }}**
 Changing "color2" to "yellow": {{ $x.Set "color2" "yellow" }} **{{ $x }}**
@@ -487,7 +487,7 @@ Previously, when saving values from ~cslice~, ~sdict~, and ~dict~ functions into
 To demonstrate .StringSlice ~{{(cslice currentTime.Month 42 "PAGSTDB").StringSlice}}~ will return a slice ~[February PAGSTDB]~. If the flag would have been set to ~true~ - ~{{...).StringSlice true}}~, all elements in that slice were not strings and ~<no value>~ is returned.
 
 General Example:
-#+BEGIN_SRC
+#+BEGIN_SRC go
 Creating a new cslice: {{ $x := (cslice "red" "red") }} **{{ $x }}**
 Appending to current cslice data
 and assigning newly created cslice to same variable:
