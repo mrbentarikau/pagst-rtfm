@@ -168,12 +168,12 @@ Shift operators implement arithmetic shifts if the left operand is a signed inte
 | ~onlineCount~                     | Returns the count of online users/members on current server.                                                                                |
 [[#table-of-contents][back to TOC]]
 * Mentions
-|--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------+------------|
-| Function           | Description                                                                                                                                                 | PAGST      |
-|--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------+------------|
-| ~mentionEveryone~  | Mentions ~@everyone~.                                                                                                                                       |            |
-| ~mentionHere~      | Mentions ~@here~.                                                                                                                                           |            |
-| ~mentionRole~ role | Mentions the ~role~. Argument can be either role's ID or it's name. Replaces still working, but deprecated functions ~mentionRoleID~ and ~mentionRoleName~. | \checkmark |
+|--------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+------------|
+| Function           | Description                                                                                                                                                | PAGST      |
+|--------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+------------|
+| ~mentionEveryone~  | Mentions ~@everyone~.                                                                                                                                      |            |
+| ~mentionHere~      | Mentions ~@here~.                                                                                                                                          |            |
+| ~mentionRole~ role | Mentions the ~role~. Argument can be either role's ID or its name. Replaces still working, but deprecated functions ~mentionRoleID~ and ~mentionRoleName~. | \checkmark |
 There is also .Mention method available for role structs/objects.
 ** Mentions section's snippets:
 #+begin_src go
