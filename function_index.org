@@ -9,7 +9,7 @@ getPinCount
 getThread
 #+end_src
 
-
+#+begin_src
 # Database
 dbBottomEntries
 dbCount
@@ -24,6 +24,7 @@ dbRank
 dbSet
 dbSetExpire
 dbTopEntries
+#+end_src
 
 # ExecCC
 cancelSheduledUniqueCC
