@@ -109,7 +109,7 @@ Fields documented as accessible on specific structures, like the context user .U
 | .Channel.Type                | The type of the channel.                                                                   |              |
 
 [[https://discordapp.com/developers/docs/resources/channel#channel-object][Channel object in Discord documentation]].\\
-Channel functions are covered in [[file:functions.org][functions]].
+Channel functions are covered in [[https://github.com/mrbentarikau/pagstrtfm/blob/master/functions.org#channel][functions]].
 
 [[#table-of-contents][back to TOC]]
 ** Guild/Server
@@ -212,7 +212,7 @@ Member functions are covered in [[file:functions.org][functions]].
 \star{} denotes field that will not have proper return when using ~getMessage~ function.
 
 [[https://discordapp.com/developers/docs/resources/channel#message-object][Message object in Discord documentation]].\\
-Message functions are covered in [[file:functions.org][functions]].
+Message functions are covered in [[https://github.com/mrbentarikau/pagstrtfm/blob/master/functions.org#message][functions]].
 
 [[#table-of-contents][back to TOC]]
 ** Reaction
@@ -251,7 +251,7 @@ This is available and part of the dot only when the reaction trigger type is bei
 | .RealUsername         | Only works with join and leave messages (not join DMs). This can be used to send the real username to a staff channel when invites are censored. |
 
 [[https://discordapp.com/developers/docs/resources/user#user-object][User object in Discord documentation.]]\\
-User functions are covered in [[file:functions.org][functions]].
+User functions are covered in [[https://github.com/mrbentarikau/pagstrtfm/blob/master/functions.org#user][functions]].
 
 [[#table-of-contents][back to TOC]]
 * Actions
@@ -518,7 +518,7 @@ There can be 10 database interactions per CC, out of which dbTop/BottomEntries, 
 
 Learning resources covers database [[https://learn.yagpdb.xyz/intermediate/custom-command-database][more in-depth]].
 
-Database functions are covered in [[file:functions.org][functions]].
+Database functions are covered in [[https://github.com/mrbentarikau/pagstrtfm/blob/master/functions.org#database][functions]].
 ** DBEntry
 
 |------------+---------------------------------------------------------------------------------------------------------------------------+--------------|
@@ -568,4 +568,6 @@ Time and duration types use Golang's time package library and its methods > http
 | .TimeMinute   | Variable of /time.Duration/ type and returns 1 minute > ~1m0s~.                                             |              |
 | .TimeSecond   | Variable of /time.Duration/ type and returns 1 second > ~1s~.                                               |              |
 | .UnixEpoch    | Gives you Unix Epoch time in /time.Time/.                                                                   |              |
+Time functions are covered [[https://github.com/mrbentarikau/pagstrtfm/blob/master/functions.org#time][here]].
+
 [[#table-of-contents][back to TOC]]
