@@ -1,4 +1,5 @@
 #+title: Functions Index
+#+begin_src
 # Channel
 editChannelName
 editChannelTopic
@@ -6,6 +7,8 @@ getChannel
 getChannelOrThread
 getPinCount
 getThread
+#+end_src
+
 
 # Database
 dbBottomEntries
