@@ -19,6 +19,9 @@ Every function having both cases possible for an argument - ID\slash{}name, then
 - [[#miscellaneous][Miscellaneous]]
 - [[#role-functions][Role functions]]
 - [[#string-manipulation][String manipulation]]
+- [[#time][Time]]
+- [[#type-conversion][Type conversion]]
+- [[#user][User]]
 #+END_QUOTE
 
 * Channel
@@ -52,6 +55,7 @@ When ~channel~ argument is required for a function, it is always either ~nil~ fo
 | ~dbSetExpire~ userID key value ttl                | Same as ~dbSet~ but with an expiration ~ttl~ which is an int and represents seconds.                                                                                                                                                                                                                        |            |
 | ~dbTopEntries~ pattern amount nSkip               | Returns amount (max 100) top entries of keys determined by the ~pattern~ from the database, sorted by the value in a descending order                                                                                                                                                                       |            |
 
+[[#table-of-contents][back to TOC]]
 ** dbCount optional arguments
 #+begin_src
 Optional arguments: if userID is given, counts entries for that userID;
@@ -79,7 +83,8 @@ The query specifies the set of entries that should be considered, and should be 
 #+end_src
 ** Note about saving numbers into database
 As stated above, database stores numbers as type /float64/. If you save a large number into database like an /int64/ (which IDs are), the value will be truncated. To avoid this behavior, you convert the number to type /string/ before saving and convert it back to its original type when retrieving it. Example: ~{{$v := .User.ID}} {{dbSet 0 "userid" (str $v)}} {{$fromDB := toInt (dbGet 0 "user_id").Value}}~
-~dict~ key values are also retrieved as /int64/, so to use them for indexing one has to e.g. index $x (toInt64 0)
+~dict~ key values are also retrieved as /int64/, so to use them for indexing one has to e.g. index $x (toInt64 0).
+
 [[#table-of-contents][back to TOC]]
 
 * ExecCC
@@ -94,17 +99,17 @@ All ~execCC~ calls are limited to 1 / CC for non-premium users and 10 / CC for p
 ** ExecCC section's snippets
 To demonstrate execCC and .ExecData using the same CC.
 #+BEGIN_SRC go
-{{ $yag := "YAGPDB rules! " }}
+{{ $yag := "PAGSTDB rules! " }}
 {{ $ctr := 0 }} {{ $yourCCID := .CCID }}
 {{ if .ExecData }}
     {{ $ctr = add .ExecData.number 1 }}
-    {{ $yag = joinStr "" $yag $ctr }} {{ .ExecData.YAGPDB }}
+    {{ $yag = joinStr "" $yag $ctr }} {{ .ExecData.PAGSTDB }}
 {{ else }}
     So, someone rules.
     {{ $ctr = add $ctr 1 }} {{ $yag = joinStr "" $yag 1 }}
 {{ end }}
 {{ if lt $ctr 5 }}
-    {{ execCC $yourCCID nil 10 (sdict "YAGPDB" $yag "number" $ctr) }}
+    {{ execCC $yourCCID nil 10 (sdict "PAGSTDB" $yag "number" $ctr) }}
 {{ else }} FUN'S OVER! {{ end }}
 #+END_SRC
 [[#table-of-contents][back to TOC]]
@@ -145,6 +150,7 @@ To demonstrate execCC and .ExecData using the same CC.
 | ~sub~ x y z ...                | Returns x - y -z - ... Works like add, just subtracts.                                                                                                                                                                                                                                                                          |            |
 | ~tan~                          | Returns the tangent of the given radian argument as type /float64/.                                                                                                                                                                                                                                                             | \checkmark |
 
+[[#table-of-contents][back to TOC]]
 ** Math section's snippets
 :PROPERTIES:
 :CUSTOM_ID: math-sections-snippets
@@ -211,6 +217,7 @@ There is also .Mention method available for role structs/objects.
 | ~sendMessageRetID~ channel message                                                                 | Same as ~sendMessage~, but also returns messageID for later use. Example in section's [[#message-sections-snippets][snippets]].                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | \checkmark |
 | ~sendTargetDM~ userID message                                                                      | Sends DM message to targeted user, this function can only be enabled by PAGST owner.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | \checkmark |
 | ~unpinMessage~ channel messageID                                                                   | Unpins the message by its ID in given ~channel~. Can be called 5 times.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |            |
+[[#table-of-contents][back to TOC]]
 ** Message section's snippets
 :PROPERTIES:
 :CUSTOM_ID: message-sections-snippets
@@ -245,7 +252,7 @@ There is also .Mention method available for role structs/objects.
     {{sleep 3}}
     {{editMessage nil $mID
         (complexMessageEdit
-            "embed" (cembed "title" "YAGPDB!" "color" 0x89aa00)
+            "embed" (cembed "title" "PAGSTDB!" "color" 0x89aa00)
             "content" "Yes, it's always working with...")}}
     {{sleep 3}}
     {{editMessage nil $mID
@@ -287,12 +294,13 @@ There is also .Mention method available for role structs/objects.
 | ~shuffle~ list                                   | Returns a shuffled, randomized version of a list/slice.                                                                                                                                                                                                                                                                                                                                   |            |
 | ~sleep~ arg                                      | Pauses execution of template's action-structure inside custom command for max 60 seconds combined. Argument ~arg~ is an integer (whole number).                                                                                                                                                                                                                                           |            |
 | ~sort~ slice (...args)                           | Sorts a slice with optional arguments. Numbers are sorted before strings. Arguments are presented in a ~sdict~ with keys having /bool/ values. Sort function is limited to 1/10 CC calls regular/premium. More about ~sort~ arguments [[#sort-arguments][here]].                                                                                                                                               | \checkmark |
-*** exec syntax
+[[#table-of-contents][back to TOC]]
+** exec syntax
 :PROPERTIES:
 :CUSTOM_ID: exec-syntax
 :END:
 The syntax is ~exec~ "command" arguments - this means you format it the same way as you would type the command regularly, just without the prefix, e.g. if you want to clear 2 messages and avoiding the pinned message > ~{{exec "clear 2 -nopin"}}~, where ~command~ part is whole ~clear 2 -nopin~. If you change that number inside CC somewhere then you have to use arguments part of exec formatting > ~{{$x := 2}} {{exec "clear" $x "-nopin"}}~. Here ~clear~ is the ~command~ and it is followed by arguments, one variable ~$x~ and one string ~-nopin~. Last example is the same as ~{{exec (joinStr " " "clear" $x "-nopin")}}~ (also notice the space in joinStr separator).
-*** Sort arguments
+** Sort arguments
 :PROPERTIES:
 :CUSTOM_ID: sort-arguments
 :END:
@@ -303,14 +311,14 @@ Sort argument keys:
 "Emptyslices" returns all possible slices if true, helpful for indexing.
 
  * Example:
-   {{sort (cslice "YAGPDB" 42 "Alphabet" 111 33.3)
+   {{sort (cslice "PAGSTDB" 42 "Alphabet" 111 33.3)
           (sdict
                   "reverse" true
                   "subslices" true
                   "emptyslices" false)}}
-   would return [111 42 33.3 YAGPDB Alphabet]
+   would return [111 42 33.3 PAGSTDB Alphabet]
 #+END_SRC
-*** Miscellaneous snippets
+** Miscellaneous snippets
 :PROPERTIES:
 :CUSTOM_ID: miscellaneous-snippets
 :END:
@@ -358,10 +366,10 @@ Every ~role~ argument can be either role's ID or its name. ~Delay~ is always opt
 | ~urlescape~, ~urlunescape~ "string"              | Escapes or unescapes the string so it can be safely placed inside a URL path segment. There's also predefined template package function urlquery which is covered [[https://pkg.go.dev/text/template#hdr-Functions][here]].                                                                                                                                                                                                                                                                                                                                                                                                                       |            |
 [[#table-of-contents][back to TOC]]
 
-*** Escape sequences
+** Escape sequences
 Special information we can always include in the string is escape sequences. Escape sequences are two (or more) characters, the first of which is a backslash \, which gives the remaining characters special meaning - let's call them metacharacters. The most common escape sequence you will encounter is ~\n~, which means ~newline~.
 With regular expression patterns - when using quotes you have to "double-escape" metacharacters starting with backslash. You can use backquotes/ticks to simplify this: ~{{reFind "\\d+" (toString 42)}}~ versus ~{{reFind `\d+` (toString 42)}}~
-*** String manipulation's snippets
+** String manipulation's snippets
 :PROPERTIES:
 :CUSTOM_ID: string-manipulations-snippets
 :END:
@@ -373,3 +381,53 @@ With regular expression patterns - when using quotes you have to "double-escape"
    Before regex: {{$msg := "1 PAGSTDB and over 100 servers conquered."}} {{$re2 := reFindAll "[0-9]+" $msg}} {{$msg}}
    After regex matches: {{joinStr " " "Only" (index $re2 0) "PAGSTDB and already" (index $re2 1) "servers captured."}}
 #+END_SRC
+
+[[#table-of-contents][back to TOC]]
+* Time
+|--------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------|
+| Function                                                                                               | Description                                                                                                                                                                                                                                                                                                                                                                     | PAGST      |
+|--------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------|
+| ~currentTime~                                                                                          | Returns the current time, value is of type /time.Time/.                                                                                                                                                                                                                                                                                                                         |            |
+| ~formatTime~ time ("layout arg")                                                                       | Outputs given time in RFC822 formatting, first argument ~time~ needs to be of type /time.Time/, also with extra layout if second argument is given - e.g. ~{{formatTime currentUserCreated "3:04PM"}}~ would output ~11:22AM~ if that would have been when user was created. Layout argument is covered [[https://pkg.go.dev/time#pkg-constants][here]].                                                                   |            |
+| ~humanizeDurationHours~, ~humanizeDurationMinutes~, ~humanizeDurationMinutes~, ~humanizeTimeSinceDays~ | Functions return given integer (whole number) or /time.Duration/ argument in nanoseconds in human readable format.                                                                                                                                                                                                                                                              |            |
+| ~loadLocation~ "location"                                                                              | Retruns value of type /*time.Location/ which can be used further in other golang's [[https://pkg.go.dev/time][time]] functions, for example ~{{currentTime.In (loadLocation "Asia/Kathmandu")}}~ would return current time in Nepal. ~location~ is of type /string/ and has to be in [[https://en.wikipedia.org/wiki/List_of_tz_database_time_zones][ZONEINFO syntax]].                                                                                                        |            |
+| ~newDate~ year month day hour minute second (timezone)                                                 | Returns type /time.Time/ object in UTC using given syntax (all required arguments need to be of type /int/), for example > ~{{humanizeDurationHours ((newDate 2059 1 2 12 34 56).Sub currentTime)}}~ will give you how much time till year 2059 January 2nd. ~timezone~ is an optional argument of type /string/ which uses golang's [[https://golang.org/pkg/time/#LoadLocation][LoadLocation]] function and [[https://en.wikipedia.org/wiki/List_of_tz_database_time_zones][ZONEINFO syntax]]. |            |
+| ~parseTime~ timeString layout (location)                                                               | ~parseTime~ function uses golang's [[https://pkg.go.dev/time#ParseInLocation][time.ParseInLocation]] function. ~location~ must be a slice of /strings/ or a single string. Max number of layouts is 50.                                                                                                                                                                                                                      | \checkmark |
+| ~snowflakeToTime~ snowflake                                                                            | Converts given ~snowflake~ to type /time.Time/ e.g. using PAGSTDB's ID ~{{snowflakeToTime .BotUser.ID}}~ returns ~2018-10-29 06:58:14 +0000 UTC~.                                                                                                                                                                                                                               |            |
+| ~weekNumber~ time                                                                                      | Returns the week number as /int/ of given argument time of type /time.Time/. ~{{weekNumber currentTime}}~ would return the week number of current time.                                                                                                                                                                                                                         |            |
+
+Discord Timestamp Styles referenced [[https://discord.com/developers/docs/reference#message-formatting-timestamp-styles][here]] can be done using print function e.g.
+~{{print "<t:" currentTime.Unix ":F>"}}~ for "Long Date/Time" formatting.
+
+[[#table-of-contents][back to TOC]]
+
+* Type conversion
+|-------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------|
+| Function                | Description                                                                                                                                                                                                                                                                        | PAGST      |
+|-------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------|
+| ~decodeStringToHex~ arg | Returns the bytes as /[]byte/ represented by the hexadecimal string ~arg~. Function expects that ~arg~ contains only hexadecimal characters and that ~arg~ has even length. Good for finding RGB decimal values : )                                                                                                                                                                          |  \checkmark |
+| ~hexToDecimal~          | Converts hex presentation to decimal value, returned as /int/.                                                                                                                                                                                                                     |            |
+| ~json~ value            | Traverses given value through MarshalJSON ([[https://golang.org/pkg/encoding/json/#Marshal][more here]]) and returns it as type string. Basically it's good to use if multistep type conversion is needed and for struct layouts.                                                                                                     |            |
+| ~structToSdict~ struct  | Function converts exported field-value pairs of a struct to a sdict. For example it is useful for editing embeds, rather than having to reconstruct the embed field by field manually.                                                                                             |            |
+| ~toByte~ arg            | Function converts input to a slice of bytes - meaning /[]uint8/. ~{{toByte "PAGST€"}}~ would output ~[80 65 71 83 84 226 130 172]~. ~toString~ is capable of converting that slice back to string.                                                                                 |            |
+| ~toDuration~            | Converts the argument, number or string to type /time.Duration/ - more duration related methods [[https://pkg.go.dev/time#Duration][here]]. Number represents nanoseconds. String can be with time modifier (second, minute, hour, day etc) s, m, h, d, w, mo, y,without a modifier string will be converted to minutes. |            |
+| ~toFloat~               | Converts argument (/int/ or /string/ type of a number) to type /float64/. Function will return ~0~, if type can't be converted to /float64/.                                                                                                                                       |            |
+| ~toInt~                 | Converts argument into an integer of type /int/. Function will return ~0~, if type can't be converted to /int/.                                                                                                                                                                    |            |
+| ~toInt64~               | Converts argument into an /int64/. Function will return ~0~, if type can't be converted to /int64/.                                                                                                                                                                                |            |
+| ~toInt64Base16~         | Converts argument to /int64/ in base16. Function will return ~0~, if type can't be converted to /int64/                                                                                                                                                                            |            |
+| ~toRune~  arg           | Function converts input to a slice of runes - meaning /[]int32/. ~{{toRune "PAGST€"}}~ would output ~[80 65 71 83 84 8364]~. ~toString~ is capable of converting that slice back to string.                                                                                        | \checkmark |
+| ~toSHA256~              | Returns the SHA256 checksum of given argument. Function does not return anything if argument can't be converted to SHA256 checksum.                                                                                                                                                | \checkmark |
+| ~toString~, ~str~       | ~toString~ and its alias ~str~, both convert the argument into a string.                                                                                                                                                                                                           |            |
+
+[[#table-of-contents][back to TOC]]
+* User
+|-------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------+------------|
+| Function                      | Description                                                                                                                                    | PAGST      |
+|-------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------+------------|
+| ~currentUserAgeHuman~         | The account age of the current user in more human readable format.                                                                             |            |
+| ~currentUserAgeMinutes~       | The account age of the current user in minutes.                                                                                                |            |
+| ~currentUserCreated~          | Returns value of type /time.Time/ and shows when the current user was created.                                                                 |            |
+| ~pastNicknames~ userID offset | Same as ~pastUsernames~.                                                                                                                       |            |
+| ~pastUsernames~ userID offset | Returns a slice of type /[ ]*logs.CCNameChange/ having fields .Name and .Time of previous 15 usernames and skips ~offset~ number in that list. |            |
+| ~userArg~ mention/userID      | Function that can be used to retrieve .User object from a mention or userID. ~userArg~ has no call limits. call-limits.                        | \checkmark |
+[[#table-of-contents][back to TOC]]
