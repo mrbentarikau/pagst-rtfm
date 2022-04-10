@@ -55,6 +55,8 @@ with
 # Golang additions
 break
 continue
+execTemplate
+return
 try-catch
 while
 

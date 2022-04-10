@@ -1,4 +1,4 @@
-#+title: Context Data
+#+title: Templates and Context Data
 #+AUTHOR: caubert + jo3-l
 "Go is all about type... Type is life." // William Kennedy
 * [[file:context_data_index.org][Index]]
@@ -20,6 +20,7 @@
   - [[#continue][Continue]]
   - [[#if-conditional-branching][If (conditional branching)]]
   - [[#range][Range]]
+  - [[#return][Return]]
   - [[#try-catch][Try-catch]]
   - [[#while][While]]
   - [[#with][With]]
@@ -304,6 +305,8 @@ HELLO!
 #+end_src
 This will happen because of whitespaces and newlines, so make sure you one-line the range or trim spaces, in this context ~{{- $x := . -}}~
 [[#table-of-contents][back to TOC]]
+** Return
+Stop execution of the current template. Using ~{{return pipeline}}~ stops execution of the current template and returns the result of evaluating the pipeline to the caller.
 ** Try-catch
 Multiple template functions have the possibility of returning an error upon failure. For example, ~dbSet~ can return a short write error if the size of the database entry exceeds some threshold.
 
