@@ -1,6 +1,7 @@
 #+title: Templates
 #+AUTHOR: caubert + jo3-l
 "Go is all about type... Type is life." // William Kennedy
+* [[file:context_data_index.org][Index]]
 * Table of Contents :TOC:QUOTE:
 :PROPERTIES:
 :CUSTOM_ID: table-of-contents
@@ -35,7 +36,6 @@
 - [[#time][Time]]
 #+END_QUOTE
 
-* [[file:context_data_index.org][Index]]
 * Preface
 
 All available data that can be used in PAGSTDB's templating "engine" which is slightly modified version of Golang's stdlib text/template package; more in depth and info about actions, pipelines and global functions like printf, index, len,etc > https://golang.org/pkg/text/template/ . This section is meant to be a concise and to the point reference document for all available templates/functions. *Functions* are covered [[file:functions.org][here]]. For detailed explanations and syntax guide refer to the [[https://learn.yagpdb.xyz/][learning resource]].

@@ -4,6 +4,8 @@ Functions are underappreciated. In general, not just in templates. // Rob Pike
 
 Every function having both cases possible for an argument - ID\slash{}name, then this name is handled case insensitive, for example getRole "pagstdb" and getRole "pAgStDb" would have same responses even if server has both of these roles, so using IDs is better.
 
+* [[file:functions_index.org][Index]]
+
 * Table of Contents :TOC_1:QUOTE:
 :PROPERTIES:
 :CUSTOM_ID: table-of-contents
@@ -12,30 +14,12 @@ Every function having both cases possible for an argument - ID\slash{}name, then
 - [[#index][Index]]
 - [[#channel][Channel]]
 - [[#database][Database]]
-- [[#userid---only-counts-entries-with-that-user-id-defaults-to-counting-entries-with-any-user-id][userID - only counts entries with that user ID, defaults to counting entries with any user ID]]
-- [[#pattern---only-counts-entries-with-names-matching-the-pattern-given-defaults-to-counting-entries-with-any-name][pattern - only counts entries with names matching the pattern given, defaults to counting entries with any name.]]
-- [[#userid---only-deletes-entries-with-the-dbentry-field-userid-provided-defaults-to-deleting-entries-with-any-id][userID - only deletes entries with the dbEntry field .UserID provided, defaults to deleting entries with any ID.]]
-- [[#pattern---only-deletes-entry-keys-with-a-name-matching-the-pattern-given][pattern - only deletes entry keys with a name matching the pattern given.]]
-- [[#reverse---if-true-starts-deleting-entries-with-the-lowest-values-first][reverse - if true, starts deleting entries with the lowest values first;]]
-- [[#userid---only-includes-entries-with-that-user-id-defaults-to-including-entries-with-any-user-id][userID - only includes entries with that user ID, defaults to including entries with any user ID]]
-- [[#pattern---only-includes-databases-key-entries-with-names-matching-the-pattern-given][pattern - only includes database's key entries with names matching the pattern given,]]
-- [[#reverse---if-true-entries-with-lower-value-have-higher-rank][reverse - if true, entries with lower value have higher rank;]]
 - [[#execcc][ExecCC]]
 - [[#math][Math]]
 - [[#member][Member]]
 - [[#mentions][Mentions]]
-- [[#userid-outputs-a-mention-to-the-user-that-called-the-command-and-is-the-same-as-usermention][<@{{.User.ID}}> Outputs a mention to the user that called the command and is the same as {{.User.Mention}}]]
-- [[#-mentions-the-user-that-has-the-id--see-how-to-get-ids-to-get-id][<@###########> Mentions the user that has the ID ###### (See How to get IDs to get ID).]]
-- [[#-mentions-the-channel-that-has-id--see-how-to-get-ids-to-get-id][<#&&&&&&&&&&&> Mentions the channel that has ID &&&&&& (See How to get IDs to get ID).]]
-- [[#-mentions-the-role-with-id--listroles-command-gives-roleids][<@&##########> Mentions the role with ID ######## (listroles command gives roleIDs).]]
 - [[#message][Message]]
-- [[#sends-message-to-current-channel-nil-and-gets-messageid-to-variable-x][Sends message to current channel nil and gets messageID to variable $x.]]
-- [[#to-demonstrate-sleep-and-slightly-also-editmessage-functions-][To demonstrate sleep and slightly also editMessage functions. >]]
-- [[#to-demonstrate-usage-of-complexmessage-with-sendmessage][To demonstrate usage of complexMessage with sendMessage.]]
-- [[#to-demonstrate-usage-of-complexmessageedit-with-editmessage][To demonstrate usage of complexMessageEdit with editMessage.]]
 - [[#miscellaneous][Miscellaneous]]
-- [[#example][Example:]]
-- [[#sendtemplate-example][sendTemplate example:]]
 - [[#role-functions][Role functions]]
 - [[#string-manipulation][String manipulation]]
 - [[#time][Time]]
@@ -43,10 +27,9 @@ Every function having both cases possible for an argument - ID\slash{}name, then
 - [[#user][User]]
 #+END_QUOTE
 
-* [[file:functions_index.org][Index]]
 * Channel
 *ProTip\trade*\\
-When ~channel~ argument is required for a function, it is always either ~nil~ for triggeringchannel, channel's "name" or its ID.
+When ~channel~ argument is required for a function, it is always either ~nil~ for triggering channel, channel's "name" or its ID.
 |-------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Function                            | Description                                                                                                                                                                                                 |
 |-------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -81,25 +64,25 @@ When ~channel~ argument is required for a function, it is always either ~nil~ fo
 Optional arguments: if userID is given, counts entries for that userID;
 if key, only those keys are counted; and if query is provided, it should be a sdict with the following options:
 
-* userID - only counts entries with that user ID, defaults to counting entries with any user ID
-* pattern - only counts entries with names matching the pattern given, defaults to counting entries with any name.
+ * userID - only counts entries with that user ID, defaults to counting entries with any user ID
+ * pattern - only counts entries with names matching the pattern given, defaults to counting entries with any name.
 #+end_src
 ** dbDelMultiple query options
 #+begin_src
 The query should be an sdict with the following options:
-* userID - only deletes entries with the dbEntry field .UserID provided, defaults to deleting entries with any ID.
-* pattern - only deletes entry keys with a name matching the pattern given.
-* reverse - if true, starts deleting entries with the lowest values first;
-otherwise starts deleting entries with the highest values first. Default is false.
+ * userID - only deletes entries with the dbEntry field .UserID provided, defaults to deleting entries with any ID.
+ * pattern - only deletes entry keys with a name matching the pattern given.
+ * reverse - if true, starts deleting entries with the lowest values first;
+   otherwise starts deleting entries with the highest values first. Default is false.
 #+end_src
 ** dbRank query options
 #+begin_src
 The query specifies the set of entries that should be considered, and should be a sdict with the following options:
-* userID - only includes entries with that user ID, defaults to including entries with any user ID
-* pattern - only includes database's key entries with names matching the pattern given,
-defaults to counting entries with any name
-* reverse - if true, entries with lower value have higher rank;
-otherwise entries with higher value have higher rank. Default is false.
+ * userID - only includes entries with that user ID, defaults to including entries with any user ID
+ * pattern - only includes database's key entries with names matching the pattern given,
+   defaults to counting entries with any name
+ * reverse - if true, entries with lower value have higher rank;
+   otherwise entries with higher value have higher rank. Default is false.
 #+end_src
 ** Note about saving numbers into database
 As stated above, database stores numbers as type /float64/. If you save a large number into database like an /int64/ (which IDs are), the value will be truncated. To avoid this behavior, you convert the number to type /string/ before saving and convert it back to its original type when retrieving it. Example: ~{{$v := .User.ID}} {{dbSet 0 "userid" (str $v)}} {{$fromDB := toInt (dbGet 0 "user_id").Value}}~
@@ -122,14 +105,14 @@ To demonstrate execCC and .ExecData using the same CC.
 {{ $yag := "PAGSTDB rules! " }}
 {{ $ctr := 0 }} {{ $yourCCID := .CCID }}
 {{ if .ExecData }}
-{{ $ctr = add .ExecData.number 1 }}
-{{ $yag = joinStr "" $yag $ctr }} {{ .ExecData.PAGSTDB }}
+    {{ $ctr = add .ExecData.number 1 }}
+    {{ $yag = joinStr "" $yag $ctr }} {{ .ExecData.PAGSTDB }}
 {{ else }}
-So, someone rules.
-{{ $ctr = add $ctr 1 }} {{ $yag = joinStr "" $yag 1 }}
+    So, someone rules.
+    {{ $ctr = add $ctr 1 }} {{ $yag = joinStr "" $yag 1 }}
 {{ end }}
 {{ if lt $ctr 5 }}
-{{ execCC $yourCCID nil 10 (sdict "PAGSTDB" $yag "number" $ctr) }}
+    {{ execCC $yourCCID nil 10 (sdict "PAGSTDB" $yag "number" $ctr) }}
 {{ else }} FUN'S OVER! {{ end }}
 #+END_SRC
 [[#table-of-contents][back to TOC]]
@@ -203,12 +186,12 @@ Shift operators implement arithmetic shifts if the left operand is a signed inte
 There is also .Mention method available for role structs/objects.
 ** Mentions section's snippets:
 #+begin_src go
-* <@{{.User.ID}}> Outputs a mention to the user that called the command and is the same as {{.User.Mention}}
-* <@###########> Mentions the user that has the ID ###### (See How to get IDs to get ID).
-* <#&&&&&&&&&&&> Mentions the channel that has ID &&&&&& (See How to get IDs to get ID).
-* <@&##########> Mentions the role with ID ######## (listroles command gives roleIDs).
-This is usable for example with {{sendMessageNoEscape nil "Welcome to role <@&11111111...>"}}.
-Mentioning that role has to be enabled server- side in Discord.
+ * <@{{.User.ID}}> Outputs a mention to the user that called the command and is the same as {{.User.Mention}}
+ * <@###########> Mentions the user that has the ID ###### (See How to get IDs to get ID).
+ * <#&&&&&&&&&&&> Mentions the channel that has ID &&&&&& (See How to get IDs to get ID).
+ * <@&##########> Mentions the role with ID ######## (listroles command gives roleIDs).
+   This is usable for example with {{sendMessageNoEscape nil "Welcome to role <@&11111111...>"}}.
+   Mentioning that role has to be enabled server- side in Discord.
 #+end_src
 [[#table-of-contents][back to TOC]]
 * Message
@@ -243,42 +226,42 @@ Mentioning that role has to be enabled server- side in Discord.
 :CUSTOM_ID: message-sections-snippets
 :END:
 #+BEGIN_SRC go
-* Sends message to current channel nil and gets messageID to variable $x.
-Also adds reactions to this message. After 5 seconds, deletes that message. >
-{{$x := sendMessageRetID nil "Hello there!"}}
-{{addMessageReactions nil $x ":hearts:" ":diamonds:"}} {{deleteMessage nil $x 5}}
-* To demonstrate sleep and slightly also editMessage functions. >
-{{$x := sendMessageRetID nil "Hello"}}
-{{sleep 3}}
-{{editMessage nil $x "There"}}
-{{sleep 3}}
-{{sendMessage nil "We all know, that"}}
-{{sleep 3}}
-PAGSTDB rules!
+ * Sends message to current channel nil and gets messageID to variable $x.
+   Also adds reactions to this message. After 5 seconds, deletes that message. >
+   {{$x := sendMessageRetID nil "Hello there!"}}
+   {{addMessageReactions nil $x ":hearts:" ":diamonds:"}} {{deleteMessage nil $x 5}}
+ * To demonstrate sleep and slightly also editMessage functions. >
+   {{$x := sendMessageRetID nil "Hello"}}
+   {{sleep 3}}
+   {{editMessage nil $x "There"}}
+   {{sleep 3}}
+   {{sendMessage nil "We all know, that"}}
+   {{sleep 3}}
+   PAGSTDB rules!
 
-* To demonstrate usage of complexMessage with sendMessage.
-{{sendMessage nil
-    (complexMessage "content" "Who rules?"
-    "embed" (cembed "description" "PAGST member of course!"
-    "color" 0x89aa00)
-    "file" "Here we print something nice - you all are doing awesome!")}}
+ * To demonstrate usage of complexMessage with sendMessage.
+   {{sendMessage nil
+       (complexMessage "content" "Who rules?"
+       "embed" (cembed "description" "PAGST member of course!"
+       "color" 0x89aa00)
+       "file" "Here we print something nice - you all are doing awesome!")}}
 
-* To demonstrate usage of complexMessageEdit with editMessage.
-{{$mID := sendMessageRetID nil
-    (complexMessage
-        "content" "You know what is..."
-        "embed" (cembed "title" "FUN!?"
-        "color" 0xaa8900))}}
-{{sleep 3}}
-{{editMessage nil $mID
-    (complexMessageEdit
-        "embed" (cembed "title" "PAGSTDB!" "color" 0x89aa00)
-        "content" "Yes, it's always working with...")}}
-{{sleep 3}}
-{{editMessage nil $mID
-    (complexMessageEdit "embed" nil
-    "content" "Embed deleted, goodbye PAGST!")}}
-{{deleteMessage nil $mID 3}}
+ * To demonstrate usage of complexMessageEdit with editMessage.
+   {{$mID := sendMessageRetID nil
+        (complexMessage
+            "content" "You know what is..."
+            "embed" (cembed "title" "FUN!?"
+            "color" 0xaa8900))}}
+    {{sleep 3}}
+    {{editMessage nil $mID
+        (complexMessageEdit
+            "embed" (cembed "title" "PAGSTDB!" "color" 0x89aa00)
+            "content" "Yes, it's always working with...")}}
+    {{sleep 3}}
+    {{editMessage nil $mID
+        (complexMessageEdit "embed" nil
+        "content" "Embed deleted, goodbye PAGST!")}}
+    {{deleteMessage nil $mID 3}}
 #+END_SRC
 [[#table-of-contents][back to TOC]]
 * Miscellaneous
@@ -330,23 +313,23 @@ Sort argument keys:
 "subslices" makes the function return a set of subslices based on input type/kind if true.
 "Emptyslices" returns all possible slices if true, helpful for indexing.
 
-* Example:
-{{sort (cslice "PAGSTDB" 42 "Alphabet" 111 33.3)
-        (sdict
-                "reverse" true
-                "subslices" true
-                "emptyslices" false)}}
-would return [111 42 33.3 PAGSTDB Alphabet]
+ * Example:
+   {{sort (cslice "PAGSTDB" 42 "Alphabet" 111 33.3)
+          (sdict
+                  "reverse" true
+                  "subslices" true
+                  "emptyslices" false)}}
+   would return [111 42 33.3 PAGSTDB Alphabet]
 #+END_SRC
 ** Miscellaneous snippets
 :PROPERTIES:
 :CUSTOM_ID: miscellaneous-snippets
 :END:
 #+BEGIN_SRC go
-* sendTemplate example:
-{{define "logsTemplate"}}This text will output on different channel, you can also use functions like {{currentTime}}.
-{{.TemplateArgs}} would be additional data sent out. {{end}}
-Now we call that "logs" in the same custom command.{{sendTemplate "logs" "logsTemplate" "PAGST members rule!"}}.
+ * sendTemplate example:
+   {{define "logsTemplate"}}This text will output on different channel, you can also use functions like {{currentTime}}.
+   {{.TemplateArgs}} would be additional data sent out. {{end}}
+   Now we call that "logs" in the same custom command.{{sendTemplate "logs" "logsTemplate" "PAGST members rule!"}}.
 #+END_SRC
 [[#table-of-contents][back to TOC]]
 * Role functions
