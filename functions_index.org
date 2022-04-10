@@ -136,7 +136,6 @@ ccCounters
 cembed
 createTicket
 cslice
-sdict
 dict
 editCCTriggerType
 exec
@@ -150,10 +149,11 @@ kindOf
 noun
 ordinalize
 parseArgs
+sdict
 sendTemplate
 sendTemplateDM
 seq
-shuffle list
+shuffle
 sleep
 sort
 
