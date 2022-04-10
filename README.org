@@ -1,22 +1,18 @@
-#+title: Templates
+#+title: PAGST Templates
 #+AUTHOR: caubert + jo3-l
-"Go is all about type... Type is life." // William Kennedy
-
-* [[file:context_data.org][Context Data]]
-*** [[file:context_data_index.org][Index]] for Context Data
-* [[file:functions.org][Template Functions]]
-*** [[file:functions_index.org][Index]] for Functions
-
+"Documentation is for users." // Rob Pike
 * Table of Contents :TOC:QUOTE:
 :PROPERTIES:
 :CUSTOM_ID: table-of-contents
 :END:
 #+BEGIN_QUOTE
-- [[#context-data][Context Data]]
-- [[#template-functions][Template Functions]]
 - [[#preface][Preface]]
 - [[#the-dot-and-variables][The Dot and Variables]]
 - [[#pipes][Pipes]]
+- [[#context-data][Context Data]]
+  - [[#index-for-context-data][Index for Context Data]]
+- [[#template-functions][Template Functions]]
+  - [[#index-for-functions][Index for Functions]]
 #+END_QUOTE
 
 * Preface
@@ -57,3 +53,8 @@ Example: ~{{randInt 41 | add 2}}~ would pipelinerandInt function's return to add
 Pipes are useful in select cases to shorten code and in some cases improve readability, but they should not be overused. In most cases, pipes are unnecessary and cause a dip in readability that helps nobody.
 
 [[#table-of-contents][back to TOC]]
+
+* [[file:context_data.org][Context Data]]
+** [[file:context_data_index.org][Index]] for Context Data
+* [[file:functions.org][Template Functions]]
+** [[file:functions_index.org][Index]] for Functions
