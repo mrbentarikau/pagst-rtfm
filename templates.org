@@ -17,6 +17,8 @@
   - [[#reaction][Reaction]]
   - [[#user][User]]
 - [[#actions][Actions]]
+  - [[#break][Break]]
+  - [[#continue][Continue]]
   - [[#if-conditional-branching][If (conditional branching)]]
   - [[#range][Range]]
   - [[#try-catch][Try-catch]]
@@ -257,6 +259,10 @@ User functions are covered in [[https://github.com/mrbentarikau/pagstrtfm/blob/m
 * Actions
 Actions, or elements enclosed in double braces ~{{  }}~, are what makes templates dynamic. Without them, templates would be no more than static text. In this section, we introduce several special kinds of actions which affect the control flow of the program. For example, iteration actions like ~range~ and ~while~ permit statements to be executed multiple times, while conditional actions like ~if~ and ~with~ allow for alteration of what statements are ran or are not ran.
 
+** Break
+The innermost ~pipeline~ loop is ended early, stopping the current iteration and bypassing all remaining iterations.
+** Continue
+The current iteration of the innermost ~pipeline~ loop is stopped, and the loop starts the next iteration.
 ** If (conditional branching)
 Branching using ~if~ action's pipeline and comparison operators - these operators don't need to be inside ~if~ branch. ~if~ statements always need to have an enclosing ~end~.
 Learning resources covers conditional branching [[https://learn.yagpdb.xyz/beginner/control_flow_1][more in depth]].
