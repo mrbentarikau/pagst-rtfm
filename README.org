@@ -6,6 +6,7 @@
 :CUSTOM_ID: table-of-contents
 :END:
 #+BEGIN_QUOTE
+- [[#index][Index]]
 - [[#preface][Preface]]
 - [[#the-dot-and-variables][The Dot and Variables]]
 - [[#pipes][Pipes]]
@@ -17,6 +18,8 @@
   - [[#reaction][Reaction]]
   - [[#user][User]]
 - [[#actions][Actions]]
+  - [[#break][Break]]
+  - [[#continue][Continue]]
   - [[#if-conditional-branching][If (conditional branching)]]
   - [[#range][Range]]
   - [[#try-catch][Try-catch]]
@@ -32,6 +35,7 @@
 - [[#time][Time]]
 #+END_QUOTE
 
+* [[file:context_data_index.org][Index]]
 * Preface
 
 All available data that can be used in PAGSTDB's templating "engine" which is slightly modified version of Golang's stdlib text/template package; more in depth and info about actions, pipelines and global functions like printf, index, len,etc > https://golang.org/pkg/text/template/ . This section is meant to be a concise and to the point reference document for all available templates/functions. *Functions* are covered [[file:functions.org][here]]. For detailed explanations and syntax guide refer to the [[https://learn.yagpdb.xyz/][learning resource]].
@@ -153,18 +157,23 @@ Channel functions are covered in [[https://github.com/mrbentarikau/pagstrtfm/blo
 
 ** Member
 
-|-------------------------+------------------------------------------------------------------------------------------------------------------------+--------------|
-| Field                   | Description                                                                                                            | PAGST        |
-|-------------------------+------------------------------------------------------------------------------------------------------------------------+--------------|
-| .Member.Avatar          | Member's avatar hash, if it is custom per server, then custom avatar hash.                                             | \checkmark{} |
-| .Member.AvatarURL "256" | Gives the URL for member's avatar, argument "256" is the size of the picture and increases/decreses twofold.           | \checkmark{} |
-| .Member.GuildID         | The guild ID on which the member exists.                                                                               |              |
-| .Member.JoinedAt        | When member joined the guild/server of type /discordgo.Timestamp/. Method .Parse will convert this to type /time.Time/ |              |
-| .Member.Nick            | The nickname for this member.                                                                                          |              |
-| .Member.Pending         | Returns /bool/ true\slash{}false whether user is pending behind Discord's screening process.                           | \checkmark{} |
-| .Member.Roles           | A /slice/ of role IDs that the member has.                                                                             |              |
-| .Member.TimeoutExpires  | Returns /time.Time/ when member's time out expires. Time in the past or nil is if the user is not timed out.           | \checkmark{} |
-| .Member.User            | Underlying user object on which the member is based on.                                                                |              |
+|-------------------------+------------------------------------------------------------------------------------------------------------------------+------------|
+| Field                   | Description                                                                                                            | PAGST      |
+|-------------------------+------------------------------------------------------------------------------------------------------------------------+------------|
+| .Member.Avatar          | Member's avatar hash, if it is custom per server, then custom avatar hash.                                             | \checkmark |
+| .Member.GuildID         | The guild ID on which the member exists.                                                                               |            |
+| .Member.JoinedAt        | When member joined the guild/server of type /discordgo.Timestamp/. Method .Parse will convert this to type /time.Time/ |            |
+| .Member.Nick            | The nickname for this member.                                                                                          |            |
+| .Member.Pending         | Returns /bool/ true\slash{}false whether user is pending behind Discord's screening process.                           | \checkmark |
+| .Member.Roles           | A /slice/ of role IDs that the member has.                                                                             |            |
+| .Member.TimeoutExpires  | Returns /time.Time/ when member's time out expires. Time in the past or nil is if the user is not timed out.           | \checkmark |
+| .Member.User            | Underlying user object on which the member is based on.                                                                |            |
+
+
+|-------------------------+--------------------------------------------------------------------------------------------------------------+------------|
+| Method                  | Description                                                                                                  | PAGST      |
+|-------------------------+--------------------------------------------------------------------------------------------------------------+------------|
+| .Member.AvatarURL "256" | Gives the URL for member's avatar, argument "256" is the size of the picture and increases/decreses twofold. | \checkmark |
 
 [[https://discordapp.com/developers/docs/resources/guild#guild-member-object][Member object in Discord documentation]].\\
 Member functions are covered in [[file:functions.org][functions]].
@@ -185,8 +194,8 @@ Member functions are covered in [[file:functions.org][functions]].
 | .Message.GuildID                     | Guild ID in which the message is.                                                                                                                               |              |
 | .Message.ID                          | ID of the message.                                                                                                                                              |              |
 | .Message.Interaction                 | Returns message [[https://discord.com/developers/docs/interactions/receiving-and-responding#message-interaction-object][interaction object]].                                                                                                                             |              |
-| .Message.Link                        | Discord link to the message. *                                                                                                                                  |              |
-| .Message.Member                      | [[#member][Member object]]. *                                                                                                                                                |              |
+| .Message.Link                        | Discord link to the message.                                                                                                                                    |              |
+| .Message.Member                      | [[#member][Member object]].                                                                                                                                                  |              |
 | .Message.MentionEveryone             | Whether the message mentions everyone, returns /bool/ true\slash{}false.                                                                                        |              |
 | .Message.MentionRoles                | The roles mentioned in the message, returned as a slice of type /discordgo.IDSlice/.                                                                            |              |
 | .Message.Mentions                    | Users this message mentions, returned as a slice of type /[]*discordgo.User/.                                                                                   |              |
@@ -235,20 +244,25 @@ This is available and part of the dot only when the reaction trigger type is bei
 [[#table-of-contents][back to TOC]]
 ** User
 
-|-----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------|
-| Field                 | Description                                                                                                                                      |
-|-----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------|
-| .User                 | The user's username together with discriminator.                                                                                                 |
-| .User.Avatar          | The user's avatar [[https://discord.com/developers/docs/reference#image-formatting][hash]].                                                                                                                          |
-| .User.AvatarURL "256" | Gives the URL for user's avatar, argument "256" is the size of the picture and can increase/decrease twofold (e.g. 512, 1024 or 128, 64 etc.).   |
-| .User.Bot             | Determines whether the target user is a bot - if yes, it will return ~true~.                                                                     |
-| .User.Discriminator   | The user's discriminator/tag (The four digits after a person's username).                                                                        |
-| .User.ID              | The user's ID.                                                                                                                                   |
-| .User.Mention         | Mentions user.                                                                                                                                   |
-| .User.String          | The user's username together with discriminator as /string/ type.                                                                                |
-| .User.Username        | The user's username.                                                                                                                             |
-| .UsernameHasInvite    | Only works with join and leave messages (not join dms). It will determine does the username contain an invite link.                              |
-| .RealUsername         | Only works with join and leave messages (not join DMs). This can be used to send the real username to a staff channel when invites are censored. |
+|---------------------+--------------------------------------------------------------------------------------------------------------------------------------------------|
+| Field               | Description                                                                                                                                      |
+|---------------------+--------------------------------------------------------------------------------------------------------------------------------------------------|
+| .User               | The user's username together with discriminator.                                                                                                 |
+| .User.Avatar        | The user's avatar [[https://discord.com/developers/docs/reference#image-formatting][hash]].                                                                                                                          |
+| .User.Bot           | Determines whether the target user is a bot - if yes, it will return ~true~.                                                                     |
+| .User.Discriminator | The user's discriminator/tag (The four digits after a person's username).                                                                        |
+| .User.ID            | The user's ID.                                                                                                                                   |
+| .User.Mention       | Mentions user.                                                                                                                                   |
+| .User.String        | The user's username together with discriminator as /string/ type.                                                                                |
+| .User.Username      | The user's username.                                                                                                                             |
+| .UsernameHasInvite  | Only works with join and leave messages (not join dms). It will determine does the username contain an invite link.                              |
+| .RealUsername       | Only works with join and leave messages (not join DMs). This can be used to send the real username to a staff channel when invites are censored. |
+
+
+|-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------|
+| Method                | Description                                                                                                                                    |
+|-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------|
+| .User.AvatarURL "256" | Gives the URL for user's avatar, argument "256" is the size of the picture and can increase/decrease twofold (e.g. 512, 1024 or 128, 64 etc.). |
 
 [[https://discordapp.com/developers/docs/resources/user#user-object][User object in Discord documentation.]]\\
 User functions are covered in [[https://github.com/mrbentarikau/pagstrtfm/blob/master/functions.org#user][functions]].
@@ -257,6 +271,10 @@ User functions are covered in [[https://github.com/mrbentarikau/pagstrtfm/blob/m
 * Actions
 Actions, or elements enclosed in double braces ~{{  }}~, are what makes templates dynamic. Without them, templates would be no more than static text. In this section, we introduce several special kinds of actions which affect the control flow of the program. For example, iteration actions like ~range~ and ~while~ permit statements to be executed multiple times, while conditional actions like ~if~ and ~with~ allow for alteration of what statements are ran or are not ran.
 
+** Break
+The innermost ~pipeline~ loop is ended early, stopping the current iteration and bypassing all remaining iterations.
+** Continue
+The current iteration of the innermost ~pipeline~ loop is stopped, and the loop starts the next iteration.
 ** If (conditional branching)
 Branching using ~if~ action's pipeline and comparison operators - these operators don't need to be inside ~if~ branch. ~if~ statements always need to have an enclosing ~end~.
 Learning resources covers conditional branching [[https://learn.yagpdb.xyz/beginner/control_flow_1][more in depth]].
