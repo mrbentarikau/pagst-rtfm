@@ -28,7 +28,7 @@ cancelSheduledUniqueCC
 execCC
 sheduleUniqueCC
 
-# Golang
+# Golang template pkg
 and
 block
 define
@@ -52,7 +52,7 @@ urlquery
 template
 with
 
-# Golang additions
+# Golang template pkg additions
 break
 continue
 execTemplate
