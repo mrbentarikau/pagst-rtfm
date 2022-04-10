@@ -215,7 +215,7 @@ parseTime
 snowflakeToTime
 weekNumber
 
-# Type conversion
+# Type Conversion
 decodeStringToHex
 hexToDecimal
 json
