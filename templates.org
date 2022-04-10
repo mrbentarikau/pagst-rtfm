@@ -90,23 +90,23 @@ Fields documented as accessible on specific structures, like the context user .U
 :CUSTOM_ID: channel
 :END:
 
-|------------------------------+-------------------------------------------------------------------------------------------+--------------|
-| Field                        | Description                                                                               | PAGST        |
-|------------------------------+-------------------------------------------------------------------------------------------+--------------|
-| .Channel.Bitrate             | Bitrate used; only set on voice channels.                                                 |              |
-| .Channel.GuildID             | Guild ID of the channel.                                                                  |              |
-| .Channel.ID                  | The ID of the channel.                                                                    |              |
-| .Channel.IsPrivate           | Whether the channel is private.                                                           |              |
-| .Channel.IsThread            | Whether the channel is a thread.                                                          |              |
-| .Channel.Mention             | Mentions the channel object.                                                              |              |
-| .Channel.Name                | The name of the channel.                                                                  |              |
-| .Channel.NSFW                | Outputs whether this channel is NSFW or not.                                              |              |
-| .Channel.ParentID            | The ID of the channel's parent (category), returns 0 if none.                             |              |
-| .Channel.PermissionOverwrite | A slice of [[https://discord.com/developers/docs/resources/channel#overwrite-object][permission overwrite]] structures applicable to the channel.                     |              |
-| .Channel.Position            | Channel position from top-down.                                                           |              |
-| .Channel.RateLimitPerUser    | Returns the amount of seconds a user has to wait before sending another message (0-21600) | \checkmark{} |
-| .Channel.Topic               | The topic of the channel.                                                                 |              |
-| .Channel.Type                | The type of the channel.                                                                  |              |
+|------------------------------+--------------------------------------------------------------------------------------------+--------------|
+| Field                        | Description                                                                                | PAGST        |
+|------------------------------+--------------------------------------------------------------------------------------------+--------------|
+| .Channel.Bitrate             | Bitrate used; only set on voice channels.                                                  |              |
+| .Channel.GuildID             | Guild ID of the channel.                                                                   |              |
+| .Channel.ID                  | The ID of the channel.                                                                     |              |
+| .Channel.IsPrivate           | Whether the channel is private.                                                            |              |
+| .Channel.IsThread            | Whether the channel is a thread.                                                           |              |
+| .Channel.Mention             | Mentions the channel object.                                                               |              |
+| .Channel.Name                | The name of the channel.                                                                   |              |
+| .Channel.NSFW                | Outputs whether this channel is NSFW or not.                                               |              |
+| .Channel.ParentID            | The ID of the channel's parent (category), returns 0 if none.                              |              |
+| .Channel.PermissionOverwrite | A slice of [[https://discord.com/developers/docs/resources/channel#overwrite-object][permission overwrite]] structures applicable to the channel.                      |              |
+| .Channel.Position            | Channel position from top-down.                                                            |              |
+| .Channel.RateLimitPerUser    | Returns the amount of seconds a user has to wait before sending another message (0-21600). | \checkmark{} |
+| .Channel.Topic               | The topic of the channel.                                                                  |              |
+| .Channel.Type                | The type of the channel.                                                                   |              |
 
 [[https://discordapp.com/developers/docs/resources/channel#channel-object][Channel object in Discord documentation]].\\
 Channel functions are covered in [[file:functions.org][functions]].
