@@ -1,7 +1,7 @@
 #+title: Commands
 
 * modified
-#+BEGIN_CENTER
+#+BEGIN_SRC
 catfacts
 creminder
 clean
@@ -12,9 +12,10 @@ listroles
 remindme
 topic
 wouldyourather
-#+END_CENTER
+#+END_SRC
 
 * new
+#+BEGIN_SRC
 addspecialserver (botOwner)
 banserverowner (botOwner)
 bash
@@ -31,3 +32,4 @@ owldictionary
 quack
 removespecialserver (botOwner)
 wolframalpha
+#+END_SRC
