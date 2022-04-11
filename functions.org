@@ -227,7 +227,8 @@ There is also .Mention method available for role structs/objects.
 #+BEGIN_SRC go
 "allowed_mentions"
     sdict with keys
-    "parse" cslise of string "users" "roles" "everyone" (for everyone and here), stating what general group to enable mention to.
+    "parse" cslise of strings "users" "roles" "everyone" (for everyone and here),
+    stating what general group to mention.
     "roles" cslice of roleIDs
     "users" cslice of userIDs
 "content" - typical message content1
