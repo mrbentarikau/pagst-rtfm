@@ -1,8 +1,8 @@
 #+title: Templates and Context Data
 #+AUTHOR: caubert + jo3-l
 "Go is all about type... Type is life." // William Kennedy
-[[file:context_data_index.org][
-Index]]
+
+[[file:context_data_index.org][Index]]
 
 * Table of Contents :TOC:QUOTE:
 :PROPERTIES:
