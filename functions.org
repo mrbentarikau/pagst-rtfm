@@ -4,14 +4,12 @@ Functions are underappreciated. In general, not just in templates. // Rob Pike
 
 Every function having both cases possible for an argument - ID\slash{}name, then this name is handled case insensitive, for example getRole "pagstdb" and getRole "pAgStDb" would have same responses even if server has both of these roles, so using IDs is better.
 
-* [[file:functions_index.org][Index]]
-
+[[file:functions_index.org][Index]]
 * Table of Contents :TOC_1:QUOTE:
 :PROPERTIES:
 :CUSTOM_ID: table-of-contents
 :END:
 #+BEGIN_QUOTE
-- [[#index][Index]]
 - [[#channel][Channel]]
 - [[#database][Database]]
 - [[#execcc][ExecCC]]
