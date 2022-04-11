@@ -38,8 +38,8 @@ When ~channel~ argument is required for a function, it is always either ~nil~ fo
 | ~getChannel~ channel                | Function returns full channel object of given channel argument, and is of type /*templates.CtxChannel./ For example > ~{{(getChannel nil).Name}}~ returns the name of the channel command was triggered in. |
 | ~getChannelOrThread~ channel        | Returns type /*templates.CtxChannel/ corresponding to [[https://github.com/mrbentarikau/pagst-rtfm/blob/master/context_data.org#channel][channel object]].                                                                                                                                          |
 | ~getPinCount~ channel               | Returns the count of pinned messages in given ~channel~. Can be called 2 times for regular and 4 for premium servers.                                                                                       |
-| ~getThread~ channel                 | Returns type /*templates.CtxChannel/ corresponding to [[https://github.com/mrbentarikau/pagst-rtfm/blob/master/context_data.org#channel][channel object]].
-                                                                                                                                       |
+| ~getThread~ channel                 | Returns type /*templates.CtxChannel/ corresponding to [[https://github.com/mrbentarikau/pagst-rtfm/blob/master/context_data.org#channel][channel object]].               
+                                                                                                                        |
 [[#table-of-contents][back to TOC]]
 * Database
 |---------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------|

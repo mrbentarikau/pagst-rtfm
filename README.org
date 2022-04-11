@@ -18,7 +18,8 @@
 * Preface
 
 All available data that can be used in PAGSTDB's templating "engine" which is slightly modified version of Golang's stdlib text/template package; more in depth and info about actions, pipelines and global functions like printf, index, len,etc > https://golang.org/pkg/text/template/ . This section is meant to be a concise and to the point reference document for all available templates/functions. *Functions* are covered [[file:functions.org][here]]. For detailed explanations and syntax guide refer to the [[https://learn.yagpdb.xyz/][learning resource]].
-Legend: at current state this is still prone to formatting errors, but everything in a code block should refer to a function, parts of a template's action-structure or output returned by PAGSTDB; single word\slash{}literal-structure in italics refers to type. Methods and fields (e.g. .Append, .User) are usually kept in standard formatting. If argument for a function is optional, it's enclosed in parenthesis ( ). If there are many optional arguments possible, it's usually denoted by 3-dot ...ellipsis.
+
+*Legend*: at current state this is still prone to formatting errors, but everything in a code block should refer to a function, parts of a template's action-structure or output returned by PAGSTDB; single word\slash{}literal-structure in italics refers to type. Methods and fields (e.g. .Append, .User) are usually kept in standard formatting. If argument for a function is optional, it's enclosed in parenthesis ( ). If there are many optional arguments possible, it's usually denoted by 3-dot ...ellipsis.
 If functions or methods are denoted with an accent, tilde ~, they are not yet deployed in actual PAGSTDB bot but are already in master code branch.
 
 *** Attention!
@@ -47,7 +48,7 @@ Using ~{{- ... -}}~ is also handy inside range actions, because whitespaces and 
 * Pipes
 A powerful component of templates is the ability to stack actions - like function calls, together - chaining one after another. This is done by using pipes |. Borrowed from Unix pipes, the concept is simple: each pipeline's output becomes the input of the following pipe. One limitation of the pipes is that they can only work with a single value and that value becomes the last parameter of the next pipeline.
 
-Example: ~{{randInt 41 | add 2}}~ would pipelinerandInt function's return to addition add as second parameter and it would be added to 2; this more simplified would be like {{40 | add 2}} with return 42. If written normally, it would be ~{{ add 2 (randInt 41) }}~. Same pipeline but using a variable is also useful one > ~{{$x:=40 | add 2}}~ would not return anything as printout, 40 still goes through pipeline to addition and 42 is stored to variable $x whereas ~{{($x:=40) | add 2}}~ would return 42 and store 40 to $x.
+Example: ~{{randInt 41 | add 2}}~ would pipelinerandInt function's return to addition add as second parameter and it would be added to 2; this more simplified would be like ~{{40 | add 2}}~ with return ~42~. If written normally, it would be ~{{ add 2 (randInt 41) }}~. Same pipeline but using a variable is also useful one > ~{{$x:=40 | add 2}}~ would not return anything as printout, 40 still goes through pipeline to addition and 42 is stored to variable $x whereas ~{{($x:=40) | add 2}}~ would return 42 and store 40 to $x.
 
 *** NB!
 Pipes are useful in select cases to shorten code and in some cases improve readability, but they should not be overused. In most cases, pipes are unnecessary and cause a dip in readability that helps nobody.
