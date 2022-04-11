@@ -1,0 +1,31 @@
+#+title: Commands
+
+* modified
+catfacts
+creminder
+clean
+customcommands
+giverep/takerep/rep
+help
+listroles
+remindme
+topic
+wouldyourather
+
+* new
+addspecialserver (botOwner)
+banserverowner (botOwner)
+bash
+clean modified
+covidstats
+editchannelpermissions
+editrole
+exporcustomcommands
+getiplocation
+inspire
+lockdown
+openweathermap
+owldictionary
+quack
+removespecialserver (botOwner)
+wolframalpha
