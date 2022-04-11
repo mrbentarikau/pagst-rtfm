@@ -1,13 +1,14 @@
 #+title: Templates and Context Data
 #+AUTHOR: caubert + jo3-l
 "Go is all about type... Type is life." // William Kennedy
-* [[file:context_data_index.org][Index]]
+[[file:context_data_index.org][
+Index]]
+
 * Table of Contents :TOC:QUOTE:
 :PROPERTIES:
 :CUSTOM_ID: table-of-contents
 :END:
 #+BEGIN_QUOTE
-- [[#index][Index]]
 - [[#context-data][Context Data]]
   - [[#channel][Channel]]
   - [[#guildserver][Guild/Server]]
