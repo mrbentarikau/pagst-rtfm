@@ -17,6 +17,7 @@ wouldyourather
 * new
 #+BEGIN_SRC
 addspecialserver (botOwner)
+antiphish (manageSserver)
 banserverowner (botOwner)
 bash
 clean modified
