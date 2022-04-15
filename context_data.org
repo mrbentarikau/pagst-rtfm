@@ -25,6 +25,9 @@
   - [[#try-catch][Try-catch]]
   - [[#while][While]]
   - [[#with][With]]
+- [[#associated-templates][Associated Templates]]
+  - [[#definition][Definition]]
+  - [[#execution][Execution]]
 - [[#custom-types][Custom Types]]
   - [[#templatessdict][templates.SDict]]
   - [[#templatesslice][templates.Slice]]
@@ -277,6 +280,9 @@ Comparison operators always require the same type: i.e comparing ~1.23~ and ~1~ 
 
 ** Range
 ~range~ iterates over element values in variety of data structures in pipeline - slices/arrays, maps or channels. The dot ~.~ is set to successive elements of those data structures and output will follow execution. If the value of pipeline has zero length, nothing is output or if an ~{{else}}~ action is used, that section will be executed.\\
+
+To skip execution of a single iteration and jump to the next iteration, the ~continue~ action may be used. Likewise, if one wishes to skip all remaining iterations, the ~break~ action may be used.
+
 Affected dot inside ~range~ is important because methods mentioned above in this documentation: ~.Server.ID~, ~.Message.Content~ etc are all already using the dot on the pipeline and if they are not carried over to the ~range~ control structure directly, these fields do not exists and template will error out. Getting those values inside ~range~ and also ~with~ action would need ~$.User.ID~ for example.
 
 ~range~ on slices/arrays provides both the index and element for each entry; ~range~ on map iterates over key/element pairs. If a ~range~ action initializes a variable, that variable is set to the successive elements of the iteration. ~range~ can also declare two variables, separated by a comma and set by index and element or key and element pair. In case of only one variable, it is assigned the element.
@@ -296,7 +302,7 @@ Like ~if~, ~range~ is concluded with ~{{end}}~ action and declared variable scop
 #+END_SRC
 
 Attention!\\
-Custom command response was longer than 2k (contact an admin on the server...)
+*Custom command response was longer than 2k (contact an admin on the server...)*
 This is quite common error users will get whilst using range. Simple example to reproduce it:
 #+begin_src go
 {{ range seq 0 1000 }}
@@ -315,27 +321,22 @@ While it is possible to write code that simply ignores the possibility of such i
 
 Similar to an ~if~ action with an associated ~else~ branch, the ~try-catch~ construct is composed of two blocks: the ~try~ branch and the ~catch~ branch. First, the code in the ~try~ branch is ran, and if an error is raised by a function during execution, the ~catch~ branch is executed instead with the context (~.~) set to the offending error.
 
-To check for a specific error, one can use the ~Error~ method. All errors have a method ~Error~ which is specified to return a message describing the reason that the error was thrown. When used in conjunction with a comparison function, more granular error-checking can be achieved.
-
+To check for a specific error, one can compare the result of the ~Error~ method with a predetermined message. (For context, all errors have a method Error which is specified to return a message describing the reason that the error was thrown.) For example, the following example has different behavior depending on whether "Reaction blocked" is in the message of the error caught.
 #+BEGIN_SRC go
 {{ try }}
-    {{ $items := (dbGet 0 "some_entry").Value }}
-    {{ dbSet 0 "some_entry" ($items.Append 1) }} {{/* can return error */}}
-    Successfully saved to database!
+    {{ addReactions "\hearts{}" }}
+    added reactions successfully
 {{ catch }}
-    {{/* in catch block, context (.) is set to the error */}}
-    {{ if eq .Error "short write" }}
-        Database value too large, resetting...
-        {{ dbSet 0 "some_entry" "" }}
+    {{ if in .Error "Reaction blocked" }}
+        user blocked PAGSTDB :(
     {{ else }}
-        Some other error occurred: {{ .Error }}
+        different issue occurred: {{ .Error }}
     {{ end }}
 {{ end }}
 #+END_SRC
 [[#table-of-contents][back to TOC]]
 ** While
-~while~ iterates as long as the specified condition is ~true~, or more generally evaluates to a non-empty value. The dot (~.~) is not affected, unlike with the ~range~ action. Analogous to ~range~, ~while~ introduces a new scope which is concluded by the ~end~ action.
-
+~while~ iterates as long as the specified condition is ~true~, or more generally evaluates to a non-empty value. The dot (~.~) is not affected, unlike with the ~range~ action. Analogous to ~range~, ~while~ introduces a new scope which is concluded by the ~end~ action. Within the body of a ~while~ action, the ~break~ and ~continue~ actions can be used to appropriate effect, like in a ~range~ action.
 #+BEGIN_SRC go
 {{/* efficiently search for an element in a sorted slice using binary search */}}
 {{ $xs := cslice 1 3 5 6 6 8 10 12 }}
@@ -364,8 +365,8 @@ To check for a specific error, one can use the ~Error~ method. All errors have a
 ~with~ lets you assign and carry pipeline value with its type as a dot (~.~) inside that control structure, it's like a shorthand. If the value of the pipeline is empty, dot is unaffected and when an ~else~ or ~else if~ action is used, execution moves on to those branches instead, similar to the ~if~ action.
 
 Affected dot inside ~with~ is important because methods mentioned above in this documentation: ~.Server.ID~, ~.Message.Content~ etc are all already using the dot on the pipeline and if they are not carried over to the ~with~ control structure directly, these fields do not exists and template will error out. Getting those values inside ~with~ and also ~range~ action would need ~$.User.ID~ for example.
-Like ~if~ and ~range~ actions, ~with~ is concluded using ~{{end}}~ and variable scope extends to that point.
 
+Like ~if~ and ~range~ actions, ~with~ is concluded using ~{{end}}~ and variable scope extends to that point.
 #+BEGIN_SRC go
 {{/* Shows the scope and how dot is affected by object's value in pipeline */}}
 {{ $x := "42" }} {{ with and ($z:= seq 0 5) ($x := seq 0 10) }}
@@ -388,6 +389,43 @@ Outer-scope $x len however: {{ len $x }}
 {{ end }}
 #+END_SRC
 [[#table-of-contents][back to TOC]]
+* Associated Templates
+Templates (i.e., custom command programs) may also define additional helper templates that may be invoked from the main template. Technically speaking, these helper templates are referred to as associated templates. Associated templates can be used to create reusable procedures accepting parameters and outputting values, similar to functions in other programming languages.
+** Definition
+To define an associated template, use the ~define~ action. It has the following syntax:
+*Warning!*: Template definitions must be at the top level of the custom command program; in other words, they cannot be nested in other actions (for example inside an ~if~ action.) That is, the following custom command is invalid:
+#+BEGIN_SRC go
+{{ if $cond }}
+    {{ define "hi" }} hi! {{ end }}
+{{ end }}
+#+END_SRC
+The template name can be any string constant; however, it cannot be a variable, even if said variable references a value of string type. As for the body of the associated template body, it can be anything that is a standalone, syntactically valid template program. Note that the first criterion precludes using variables defined outside of the associated template; that is, the following custom command is invalid, as the body of the associated template references a variable (~$name~) defined in an outer scope:
+#+BEGIN_SRC go
+{{ $name := "PAGST" }}
+{{ define "hello" }}
+    Hello, {{ $name }}!
+{{ end }}
+#+END_SRC
+If accessing the value of ~$name~ is desired, then it needs to be passed as part of the context when executing the associated template.
+
+Within the body of an associated template, the variable ~$~ and the context dot (~.~) both initially refer to the data passed as context during execution. Consequently, any data on the original context that needs to be accessed must be explicitly provided as part of the context data. For example, if one wishes to access ~.User.Username~ in an associated template body, it is necessary to pass ~.User.Username~ as part of the context data when executing said template.
+
+To return a value from an associated template, use the ~return~ action. Encountering a ~return~ action will cause execution of the associated template to end immediately and control to be returned to the caller. For example, below is an associated template that always returns ~1~:
+#+BEGIN_SRC go
+{{ define "getOne" }} {{ return 1 }} {{ end }}
+#+END_SRC
+Note that it is not necessary for a value to be returned; ~{{ return }}~ by itself is completely valid.
+
+*NB!*: Since all custom commands are themselves templates, using a return action at the top level is perfectly valid, and will result in execution of the custom command being stopped at the point the return is encountered.
+#+BEGIN_SRC go
+{{ if not .CmdArgs }}
+    no arguments passed
+    {{ return }} {{/* anything beyond this point is not executed */}}
+{{ end }}
+{{ $firstArg := index .CmdArgs 0 }}
+{{/* safe since .CmdArgs is guaranteed to be non-empty here */}}
+#+END_SRC
+** Execution
 * Custom Types
 Golang has built-in primitive data types (/int/, /string/, /bool/, /float64/, ...) and built-in composite data types (/array/, /slice/, /map/, ...) which also are used in custom commands.
 
