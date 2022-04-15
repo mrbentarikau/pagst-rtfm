@@ -100,7 +100,7 @@ All ~execCC~ calls are limited to 1 / CC for non-premium users and 10 / CC for p
 | ~sheduleUniqueCC~ ccID channel delay key data | Same as ~execCC~ except there can only be 1 scheduled cc execution per server per key, if key already exists then it is overwritten with the new data and delay (as above, in seconds). An example would be a mute command that schedules the unmute action sometime in the future. However, let's say you use the unmute command again on the same user, you would want to override the last scheduled unmute to the new one. This can be used for that                                                                                                                                                                                                                                                                |
 ** ExecCC section's snippets
 To demonstrate execCC and .ExecData using the same CC.
-#+BEGIN_SRC go
+#+BEGIN_SRC go -n
 {{ $yag := "PAGSTDB rules! " }}
 {{ $ctr := 0 }} {{ $yourCCID := .CCID }}
 {{ if .ExecData }}
