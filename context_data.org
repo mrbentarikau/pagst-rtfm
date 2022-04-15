@@ -425,6 +425,7 @@ Note that it is not necessary for a value to be returned; ~{{ return }}~ by itse
 {{ $firstArg := index .CmdArgs 0 }}
 {{/* safe since .CmdArgs is guaranteed to be non-empty here */}}
 #+END_SRC
+[[#table-of-contents][back to TOC]]
 ** Execution
 To execute a custom command, one of three methods may be used: ~template~, ~block~, or ~execTemplate~.
 *** Template action
@@ -445,6 +446,7 @@ Below is an example of tthe ~template~ action:
 {{ template "sayHi" "PAGST" }} {{/* hi there, PAGST */}}
 #+END_SRC
 Astute readers may have noticed that there is extra whitespace outputted in the previous example. This is due to the fact that whitespace is considered as part of output in associated template definitions (and actions in general.) If outputting whitespace is undesirable, use trim markers: ~{{- ... -}}~.
+[[#table-of-contents][back to TOC]]
 *** Block action
 ~block~ has a structure similar to that of a ~define~ action. It is equivalent to a ~define~ action followed by a ~template~ action:
 #+BEGIN_SRC go
@@ -459,6 +461,7 @@ Astute readers may have noticed that there is extra whitespace outputted in the 
 {{ end }}
 {{ template "sayHi" $name }}
 #+END_SRC
+[[#table-of-contents][back to TOC]]
 *** execTemplate function
 ~execTemplate~ is essentially the same as the ~template~ action, but provides access to the return value of the template and may be used as part of another action. Below is an example using ~execTemplate~:
 #+BEGIN_SRC go
@@ -473,6 +476,7 @@ Astute readers may have noticed that there is extra whitespace outputted in the 
 {{ $fac := execTemplate "factorial" 5 }}
 2 * 5! = {{ mult $fac 2 }}
 #+END_SRC
+[[#table-of-contents][back to TOC]]
 * Custom Types
 Golang has built-in primitive data types (/int/, /string/, /bool/, /float64/, ...) and built-in composite data types (/array/, /slice/, /map/, ...) which also are used in custom commands.
 
