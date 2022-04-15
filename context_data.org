@@ -426,6 +426,53 @@ Note that it is not necessary for a value to be returned; ~{{ return }}~ by itse
 {{/* safe since .CmdArgs is guaranteed to be non-empty here */}}
 #+END_SRC
 ** Execution
+To execute a custom command, one of three methods may be used: ~template~, ~block~, or ~execTemplate~.
+*** Template action
+~template~ is a function-like action that executes the associated template with the name provided, ignoring its return value. Note that the name of the template to execute must be a string constant; similar to ~define~ actions, a variable referencing a value of string type is invalid. Data to use as the context may optionally be provided following the name.
+
+Although ~template~ is function-like, it is not an actual function, leading to certain quirks; notably, it must be used alone, not part of another action (like a variable declaration), and the data argument need not be parenthesized. Due to this, it is recommended that ~execTemplate~, which has much more intuitive behavior, be used instead of the ~template~ action if at possible.
+
+Below is an example of tthe ~template~ action:
+#+BEGIN_SRC go
+{{ define "sayHi" }}
+    {{ if . }}
+        hi there, {{ . }}
+    {{ else }}
+        hi there!
+    {{ end }}
+{{ end }}
+{{ template "sayHi" }} {{/* hi there! */}}
+{{ template "sayHi" "PAGST" }} {{/* hi there, PAGST */}}
+#+END_SRC
+Astute readers may have noticed that there is extra whitespace outputted in the previous example. This is due to the fact that whitespace is considered as part of output in associated template definitions (and actions in general.) If outputting whitespace is undesirable, use trim markers: ~{{- ... -}}~.
+*** Block action
+~block~ has a structure similar to that of a ~define~ action. It is equivalent to a ~define~ action followed by a ~template~ action:
+#+BEGIN_SRC go
+{{ $name := "YAG" }}
+{{ block "sayHi" $name }}
+    hi there, {{ . }}
+{{ end }}
+
+{{/* equivalent to above */}}
+{{ define "sayHi" }}
+    hi there, {{ . }}
+{{ end }}
+{{ template "sayHi" $name }}
+#+END_SRC
+*** execTemplate function
+~execTemplate~ is essentially the same as the ~template~ action, but provides access to the return value of the template and may be used as part of another action. Below is an example using ~execTemplate~:
+#+BEGIN_SRC go
+{{ define "factorial" }}
+    {{- $n := 1 }}
+    {{- range seq 2 (add . 1) }}
+        {{- $n = mult $n . }}
+    {{- end }}
+    {{- return $n -}}
+{{ end }}
+
+{{ $fac := execTemplate "factorial" 5 }}
+2 * 5! = {{ mult $fac 2 }}
+#+END_SRC
 * Custom Types
 Golang has built-in primitive data types (/int/, /string/, /bool/, /float64/, ...) and built-in composite data types (/array/, /slice/, /map/, ...) which also are used in custom commands.
 
