@@ -45,13 +45,13 @@ Fields documented as accessible on specific structures, like the context user .U
 |--------------+--------------------------------------------------------------------------------------------------------------------------------------------------+--------------|
 | Field        | Description                                                                                                                                      | PAGST        |
 |--------------+--------------------------------------------------------------------------------------------------------------------------------------------------+--------------|
-| .BotUSer     | Gives bot's user object.                                                                                                                         | \checkmark{} |
+| .BotUSer     | Gives bot's user object.                                                                                                                         | \checkmark   |
 | .CCID        | The ID of currently executing custom command in type of /int64/.                                                                                 |              |
 | .CCRunCount  | Shows run count of triggered custom command, although this is not going to be 100% accurate as it's cached up to 30 minutes.                     |              |
 | .CCTrigger   | If trigger type has a printable trigger, prints out its name. For example, if trigger type is regex and trigger is set to \A, it would print \A. |              |
 | .IsPremium   | Returns boolean true/false whether guild is premium of PASTDB or not.                                                                            |              |
-| .ModlogID    | Channel's ID where moderation modlog is sent.                                                                                                    | \checkmark{} |
-| .ReportlogID | Channel's ID where moderation reports are sent.                                                                                                  | \checkmark{} |
+| .ModlogID    | Channel's ID where moderation modlog is sent.                                                                                                    | \checkmark   |
+| .ReportlogID | Channel's ID where moderation reports are sent.                                                                                                  | \checkmark   |
 
 ** Channel
 :PROPERTIES:
@@ -69,10 +69,11 @@ Fields documented as accessible on specific structures, like the context user .U
 | .Channel.Mention             | Mentions the channel object.                                                               |              |
 | .Channel.Name                | The name of the channel.                                                                   |              |
 | .Channel.NSFW                | Outputs whether this channel is NSFW or not.                                               |              |
+| .Channel.OwnerID             | ID of the creator of the group DM or thread                                                | \checkmark   |
 | .Channel.ParentID            | The ID of the channel's parent (category), returns 0 if none.                              |              |
 | .Channel.PermissionOverwrite | A slice of [[https://discord.com/developers/docs/resources/channel#overwrite-object][permission overwrite]] structures applicable to the channel.                      |              |
 | .Channel.Position            | Channel position from top-down.                                                            |              |
-| .Channel.RateLimitPerUser    | Returns the amount of seconds a user has to wait before sending another message (0-21600). | \checkmark{} |
+| .Channel.RateLimitPerUser    | Returns the amount of seconds a user has to wait before sending another message (0-21600). | \checkmark   |
 | .Channel.Topic               | The topic of the channel.                                                                  |              |
 | .Channel.Type                | The type of the channel.                                                                   |              |
 
