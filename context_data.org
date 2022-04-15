@@ -451,7 +451,7 @@ Astute readers may have noticed that there is extra whitespace outputted in the 
 *** Block action
 ~block~ has a structure similar to that of a ~define~ action. It is equivalent to a ~define~ action followed by a ~template~ action:
 #+BEGIN_SRC go
-{{ $name := "YAG" }}
+{{ $name := "PAGST" }}
 {{ block "sayHi" $name }}
     hi there, {{ . }}
 {{ end }}
