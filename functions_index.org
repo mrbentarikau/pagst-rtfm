@@ -169,7 +169,7 @@ giveRoleID
 giveRoleName
 hasRole
 hasRoleID
-hasRoleNam
+hasRoleName
 removeRole
 removeRoleID
 removeRoleName
