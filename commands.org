@@ -27,6 +27,7 @@ covidstats
 editchannelpermissions
 editrole
 exporcustomcommands
+exportuserdatabase
 getiplocation
 inspire
 lockdown
