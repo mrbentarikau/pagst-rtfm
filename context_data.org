@@ -42,16 +42,17 @@
 Context data refers to information accessible via the dot, ~{{ . }}~. The accessible data ranges from useful constants to information regarding the environment in which the custom command was executed, such as the user that ran it, the channel it was ran in, and so on.
 Fields documented as accessible on specific structures, like the context user .User, are usable on all values that share the same type. That is, given a user $user, $user.ID is a valid construction that yields the ID of the user. Similarly, provided a channel $channel, $channel.Name gives the name of the channel.
 
-|--------------+--------------------------------------------------------------------------------------------------------------------------------------------------+--------------|
-| Field        | Description                                                                                                                                      | PAGST        |
-|--------------+--------------------------------------------------------------------------------------------------------------------------------------------------+--------------|
-| .BotUSer     | Gives bot's user object.                                                                                                                         | \checkmark   |
-| .CCID        | The ID of currently executing custom command in type of /int64/.                                                                                 |              |
-| .CCRunCount  | Shows run count of triggered custom command, although this is not going to be 100% accurate as it's cached up to 30 minutes.                     |              |
-| .CCTrigger   | If trigger type has a printable trigger, prints out its name. For example, if trigger type is regex and trigger is set to \A, it would print \A. |              |
-| .IsPremium   | Returns boolean true/false whether guild is premium of PASTDB or not.                                                                            |              |
-| .ModlogID    | Channel's ID where moderation modlog is sent.                                                                                                    | \checkmark   |
-| .ReportlogID | Channel's ID where moderation reports are sent.                                                                                                  | \checkmark   |
+|--------------+--------------------------------------------------------------------------------------------------------------------------------------------------+------------|
+| Field        | Description                                                                                                                                      | PAGST      |
+|--------------+--------------------------------------------------------------------------------------------------------------------------------------------------+------------|
+| .BotUSer     | Gives bot's user object.                                                                                                                         | \checkmark |
+| .CCID        | The ID of currently executing custom command in type of /int64/.                                                                                 |            |
+| .CCRunCount  | Shows run count of triggered custom command, although this is not going to be 100% accurate as it's cached up to 30 minutes.                     |            |
+| .CCTrigger   | If trigger type has a printable trigger, prints out its name. For example, if trigger type is regex and trigger is set to \A, it would print \A. |            |
+| .GuildPrefix | Returns active command prefix for the guild. Has an alias .ServerPrefix                                                                          | \checkmark |
+| .IsPremium   | Returns boolean true/false whether guild is premium of PASTDB or not.                                                                            |            |
+| .ModlogID    | Channel's ID where moderation modlog is sent.                                                                                                    | \checkmark |
+| .ReportlogID | Channel's ID where moderation reports are sent.                                                                                                  | \checkmark |
 
 ** Channel
 :PROPERTIES:

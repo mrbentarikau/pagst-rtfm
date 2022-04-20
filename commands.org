@@ -13,6 +13,7 @@ listroles
 remindme
 replog
 topic
+undelete
 wouldyourather
 #+END_SRC
 

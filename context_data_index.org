@@ -8,9 +8,11 @@
 .CCTrigger
 .Cmd
 .CmdArgs
+.GuildPrefix
 .IsPremium
 .ModlogID
 .ReportlogID
+.ServerPrefix
 .StrippedMsg
 
 # .Channel
