@@ -148,6 +148,7 @@ humanizeThousands
 in list value
 inFold
 kindOf
+linkRegex
 noun
 ordinalize
 parseArgs
