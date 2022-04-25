@@ -8,8 +8,10 @@
 .CCTrigger
 .Cmd
 .CmdArgs
+.DomainRegex
 .GuildPrefix
 .IsPremium
+.LinkRegex
 .ModlogID
 .ReportlogID
 .ServerPrefix
