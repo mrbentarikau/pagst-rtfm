@@ -25,6 +25,7 @@ banserverowner (botOwner)
 bash
 clean modified
 covidstats
+dadjoke
 editchannelpermissions
 editrole
 exporcustomcommands
