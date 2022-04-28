@@ -128,7 +128,7 @@ Channel functions are covered in [[https://github.com/mrbentarikau/pagstrtfm/blo
 |-------------------------+------------------------------------------------------------------------------------------------------------------------+------------|
 | Field                   | Description                                                                                                            | PAGST      |
 |-------------------------+------------------------------------------------------------------------------------------------------------------------+------------|
-| .Member.Avatar          | Member's avatar hash, if it is custom per server, then custom avatar hash.                                             | \checkmark |
+| .Member.Avatar          | Member's avatar hash, if it is custom per server, then custom avatar hash.                                             |            |
 | .Member.GuildID         | The guild ID on which the member exists.                                                                               |            |
 | .Member.JoinedAt        | When member joined the guild/server of type /discordgo.Timestamp/. Method .Parse will convert this to type /time.Time/ |            |
 | .Member.Nick            | The nickname for this member.                                                                                          |            |
@@ -138,10 +138,10 @@ Channel functions are covered in [[https://github.com/mrbentarikau/pagstrtfm/blo
 | .Member.User            | Underlying user object on which the member is based on.                                                                |            |
 
 
-|-------------------------+--------------------------------------------------------------------------------------------------------------+------------|
-| Method                  | Description                                                                                                  | PAGST      |
-|-------------------------+--------------------------------------------------------------------------------------------------------------+------------|
-| .Member.AvatarURL "256" | Gives the URL for member's avatar, argument "256" is the size of the picture and increases/decreses twofold. | \checkmark |
+|-------------------------+--------------------------------------------------------------------------------------------------------------+-------|
+| Method                  | Description                                                                                                  | PAGST |
+|-------------------------+--------------------------------------------------------------------------------------------------------------+-------|
+| .Member.AvatarURL "256" | Gives the URL for member's avatar, argument "256" is the size of the picture and increases/decreses twofold. |       |
 
 [[https://discordapp.com/developers/docs/resources/guild#guild-member-object][Member object in Discord documentation]].\\
 Member functions are covered in [[file:functions.org][functions]].
