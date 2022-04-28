@@ -28,6 +28,9 @@ Every function having both cases possible for an argument - ID\slash{}name, then
 * Channel
 *ProTip\trade*\\
 When ~channel~ argument is required for a function, it is always either ~nil~ for triggering channel, channel's "name" or its ID.
+
+*NB!*\\
+The ratelimit for editing a channel is 2 requests per 10 minutes per channel.
 |-------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Function                            | Description                                                                                                                                                                                                 |
 |-------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
