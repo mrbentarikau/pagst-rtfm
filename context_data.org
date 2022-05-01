@@ -87,7 +87,7 @@ Channel functions are covered in [[https://github.com/mrbentarikau/pagstrtfm/blo
 ** Guild/Server
 
 |------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------|
-| Field                              | Description                                                                                                                                                                                 |            |
+| Field                              | Description                                                                                                                                                                                 | PAGST      |
 |------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------|
 | .Guild.AfkChannelID                | Outputs the AFK channel ID.                                                                                                                                                                 |            |
 | .Guild.AfkTimeout                  | Outputs the time when a user gets moved into the AFK channel while not being active.                                                                                                        |            |
