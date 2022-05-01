@@ -110,7 +110,6 @@ Channel functions are covered in [[https://github.com/mrbentarikau/pagstrtfm/blo
 | .Guild.VoiceStates                 | Outputs a /slice/ of [[https://discord.com/developers/docs/resources/voice#voice-state-object][voice states]] (users connected to VCs) with type /[]discordgo.VoiceState/.                                                                                              |            |
 | .Guild.WidgetChannelID             | Outputs the channel ID for the server widget.                                                                                                                                               |            |
 | .Guild.WidgetEnabled               | Outputs whether or not the server widget is enabled.                                                                                                                                        |            |
-|                                    |                                                                                                                                                                                             |            |
 
 
 |-------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
