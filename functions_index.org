@@ -138,20 +138,36 @@ ccCounters
 cembed
 createTicket
 cslice
+ .Append
+ .AppendSlice
+ .Del
+ .Set
+ .StringSlice
 dict
+ .Del
+ .Get
+ .HasKey
+ .Set
 editCCTriggerType
 exec
 execAdmin
 hasPrefix
 hasSuffix
 humanizeThousands
-in list value
+in
 inFold
 kindOf
 noun
 ordinalize
 parseArgs
+ .IsSet
+ .Len
+ carg
 sdict
+ .Del
+ .Get
+ .HasKey
+ .Set
 sendTemplate
 sendTemplateDM
 seq
