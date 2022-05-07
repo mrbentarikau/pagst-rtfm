@@ -55,6 +55,7 @@ Fields documented as accessible on specific structures, like the context user .U
 | .LinkRegex   | Returns string value of in-built link-matching regular expression.                                                                               |            |
 | .ModlogID    | Channel's ID where moderation modlog is sent.                                                                                                    | \checkmark |
 | .ReportlogID | Channel's ID where moderation reports are sent.                                                                                                  | \checkmark |
+| .ThanksRegex | Returns string value of in-built thanks-matching regex.                                                                                          | \checkmark |
 
 ** Channel
 :PROPERTIES:

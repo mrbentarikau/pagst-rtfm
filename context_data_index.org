@@ -16,6 +16,7 @@
 .ReportlogID
 .ServerPrefix
 .StrippedMsg
+.ThanksRegex
 
 # .Channel
 .Bitrate
