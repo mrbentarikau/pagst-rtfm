@@ -207,6 +207,7 @@ println
 reFind
 reFindAll
 reFindAllSubmatches
+reQuoteMeta
 reReplace
 reSplit
 slice
