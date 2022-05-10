@@ -74,6 +74,7 @@ bitwiseRightShift
 cbrt
 cos
 div
+divMod
 exp
 exp2
 fdiv
@@ -97,9 +98,14 @@ sub
 tan
 
 # Member
+getTargetPermissionsIn
 editNickname
 getMember
+hasPermissions
 onlineCount
+setMemberTimeOut
+targetHasPermissions
+
 
 # Mentions
 mentionEveryone

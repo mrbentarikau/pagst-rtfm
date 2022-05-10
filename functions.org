@@ -135,6 +135,7 @@ To demonstrate execCC and .ExecData using the same CC.
 | ~cbrt~                         | Returns the cube root of given argument in type /float64/ e.g. ~{{cbrt 64}}~ returns ~4~.                                                                                                                                                                                                                                       |            |
 | ~cos~                          | Returns the cosine of the given radian argument as type /float64/.                                                                                                                                                                                                                                                              | \checkmark |
 | ~div~ x y z ...                | Division, like ~add~ or ~mult~, function detects first number's type first. ~{{div 11 3}}~ returns ~3~ whereas ~{{div 11.1 3}}~ returns  ~3.6999999999999997~.                                                                                                                                                                  |            |
+| ~divMod~ numerator denominator | Returns a /templates.Slice/ having quotient and remainder of given arguments.                                                                                                                                                                                                                                                   | \checkmark |
 | ~exp~                          | Return e**x, the base-e componential of given argument as type /float64/.                                                                                                                                                                                                                                                       | \checkmark |
 | ~exp2~                         | Returns 2**x, the base-2 exponential of given argument as type /float64/.                                                                                                                                                                                                                                                       | \checkmark |
 | ~fdiv~ x y z ...               | Meant specifically for floating point numbers division.                                                                                                                                                                                                                                                                         |            |
@@ -171,12 +172,15 @@ Shift operators implement arithmetic shifts if the left operand is a signed inte
 
 [[#table-of-contents][back to TOC]]
 * Member
-|-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------|
-| Function                          | Description                                                                                                                                 |
-|-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------|
-| ~editNickname~ "newNick"          | Edits triggering user's nickname, argument has to be of type string. PAGSTDB's highest role has to be above the highest role of the member. |
-| ~getMember~ mention\slash{}userID | Function returns Member object. ~{{(getMember .User.ID).JoinedAt}}~ is the same as ~{{.Member.JoinedAt}}~.                                  |
-| ~onlineCount~                     | Returns the count of online users/members on current server.                                                                                |
+|---------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+------------|
+| Function                                    | Description                                                                                                                                 | PAGST      |
+|---------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+------------|
+| ~getTargetPermissionsIn~ memberID channelID | Returns target's permissions in the given channel.                                                                                          | \checkmark |
+| ~editNickname~ "newNick"                    | Edits triggering user's nickname, argument has to be of type string. PAGSTDB's highest role has to be above the highest role of the member. |            |
+| ~hasPermissions~ arg                        | Returns true/false on whether triggering user has the permission bit /int64/.                                                               | \checkmark |
+| ~getMember~ mention\slash{}userID           | Function returns Member object. ~{{(getMember .User.ID).JoinedAt}}~ is the same as ~{{.Member.JoinedAt}}~.                                  |            |
+| ~onlineCount~                               | Returns the count of online users/members on current server.                                                                                |            |
+| ~targetHasPermissions~ memberID arg         | Returns true/false on whether targeted member has the permission bit /int64/.                                                               | \checkmark |
 [[#table-of-contents][back to TOC]]
 * Mentions
 |--------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+------------|
