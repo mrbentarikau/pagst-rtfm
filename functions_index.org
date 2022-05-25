@@ -79,6 +79,7 @@ exp
 exp2
 fdiv
 log
+mathConst
 max
 min
 mod
