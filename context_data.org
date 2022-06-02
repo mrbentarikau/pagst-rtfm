@@ -451,8 +451,7 @@ Below is an example of tthe ~template~ action:
 {{ template "sayHi" }} {{/* hi there! */}}
 {{ template "sayHi" "PAGST" }} {{/* hi there, PAGST */}}
 #+END_SRC
-Astute readers may have noticed that there is extra whitespace outputted in the previous example. This is due to the fact that whitespace is considered as part of output in associated template definitions (and actions in general.) If outputting whitespace is undesirable, use trim markers: ~{{- ... -}}~.
-
+Trim markers: ~{{- ... -}}~ were used in above example because whitespace is considered as part of output for associated template definitions (and actions in general).
 [[#table-of-contents][back to TOC]]
 *** Block action
 ~block~ has a structure similar to that of a ~define~ action. It is equivalent to a ~define~ action followed by a ~template~ action:
