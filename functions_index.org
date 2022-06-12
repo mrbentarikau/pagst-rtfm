@@ -181,6 +181,7 @@ seq
 shuffle
 sleep
 sort
+verb
 
 # Role functions
 addRole
