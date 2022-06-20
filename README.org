@@ -59,3 +59,20 @@ Pipes are useful in select cases to shorten code and in some cases improve reada
 ** [[file:context_data_index.org][Index]] for Context Data
 * [[file:functions.org][Template Functions]]
 ** [[file:functions_index.org][Index]] for Functions
+
+
+{{if $msgid := (dbGet 0 "faq").Value }}
+    {{ if eq .Reaction.MessageID (toInt $msgid) }}
+        {{ if eq .Reaction.Emoji.Name "1??" }}
+            {{sendDM "One!"}}
+        {{ else if eq .Reaction.Emoji.Name "2??" }}
+            {{sendDM "Two!"}}
+        {{ else if eq .Reaction.Emoji.Name "3??" }}
+            {{sendDM "Three!"}}
+        {{ else if eq .Reaction.Emoji.Name "4??" }}
+            {{sendDM "Four!"}}
+        {{ else if eq .Reaction.Emoji.Name "5??" }}
+            {{sendDM "Five!"}}
+        {{end}}
+    {{end}}
+{{end}}?

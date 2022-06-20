@@ -101,7 +101,9 @@ tan
 # Member
 getTargetPermissionsIn
 editNickname
+getBotCount
 getMember
+getMemberCount
 hasPermissions
 onlineCount
 setMemberTimeOut
