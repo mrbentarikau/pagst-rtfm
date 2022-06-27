@@ -4,6 +4,7 @@
 editChannelName
 editChannelTopic
 getChannel
+getChannelPins
 getChannelOrThread
 getPinCount
 getThread
