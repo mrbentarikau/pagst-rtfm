@@ -13,6 +13,7 @@
 .IsPremium
 .LinkRegex
 .ModlogID
+.Permissions
 .ReportlogID
 .ServerPrefix
 .StrippedMsg
