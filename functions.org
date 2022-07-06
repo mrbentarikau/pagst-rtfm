@@ -104,19 +104,22 @@ All ~execCC~ calls are limited to 1 / CC for non-premium users and 10 / CC for p
 ** ExecCC section's snippets
 To demonstrate execCC and .ExecData using the same CC.
 #+BEGIN_SRC go -n 1
-{{ $yag := "PAGSTDB rules! " }}
+{{ $pag := "PAGSTDB rules! " }}
 {{ $ctr := 0 }} {{ $yourCCID := .CCID }}
 {{ if .ExecData }}
     {{ $ctr = add .ExecData.number 1 }}
-    {{ $yag = joinStr "" $yag $ctr }} {{ .ExecData.PAGSTDB }}
+    {{ $pag = joinStr "" $pag $ctr }} {{ .ExecData.PAGSTDB }}
 {{ else }}
     So, someone rules.
-    {{ $ctr = add $ctr 1 }} {{ $yag = joinStr "" $yag 1 }}
+    {{ $ctr = add $ctr 1 }} {{ $pag = joinStr "" $pag 1 }}
 {{ end }}
 {{ if lt $ctr 5 }}
-    {{ execCC $yourCCID nil 10 (sdict "PAGSTDB" $yag "number" $ctr) }}
+    {{ execCC $yourCCID nil 10 (sdict "PAGSTDB" $pag "number" $ctr) }}
 {{ else }} FUN'S OVER! {{ end }}
 #+END_SRC
+
+#+RESULTS:
+
 [[#table-of-contents][back to TOC]]
 
 * Math
