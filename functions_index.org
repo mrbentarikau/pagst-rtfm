@@ -153,6 +153,7 @@ cslice
  .Del
  .Set
  .StringSlice
+derefPointer
 dict
  .Del
  .Get
@@ -161,6 +162,7 @@ dict
 editCCTriggerType
 exec
 execAdmin
+getAuditLogEntries
 hasPrefix
 hasSuffix
 humanizeThousands
