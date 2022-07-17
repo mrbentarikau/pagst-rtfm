@@ -4,6 +4,7 @@
 .Args
 .BotUser
 .CCID
+.CCNote
 .CCRunCount
 .CCTrigger
 .Cmd
