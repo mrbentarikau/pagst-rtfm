@@ -139,7 +139,7 @@ Channel functions are covered in [[https://github.com/mrbentarikau/pagstrtfm/blo
 | .Member.Nick             | The nickname for this member.                                                                                          |            |
 | .Member.Pending          | Returns /bool/ true\slash{}false whether user is pending behind Discord's screening process.                           |            |
 | .Member.Roles            | A /slice/ of role IDs that the member has.                                                                             |            |
-| .Member.TimeoutExpiresAt | Returns /time.Time/ when member's time out expires. Time in the past or nil is if the user is not timed out.           | \checkmark |
+| .Member.TimeoutExpiresAt | Returns /time.Time/ when member's time out expires. Time in the past or nil is if the user is not timed out.           |            |
 | .Member.User             | Underlying user object on which the member is based on.                                                                |            |
 
 
