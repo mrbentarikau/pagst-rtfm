@@ -243,7 +243,7 @@ There is also .Mention method available for role structs/objects.
     "parse" one string or a cslise of strings "users" "roles" "everyone" (for everyone and here),
     stating what general group to mention.
 
-	"roles" roleID or a cslice of roleIDs
+    "roles" roleID or a cslice of roleIDs
     "users" userID or a cslice of userIDs
     "reply" bool (enables reply-ping)
 "content" - typical message content1
