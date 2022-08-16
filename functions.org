@@ -248,7 +248,8 @@ There is also .Mention method available for role structs/objects.
     "reply" bool (enables reply-ping)
 "content" - typical message content1
 "embed" - for making embed(s) either single cembed or a slice or cembeds, max 10
-"file", "filename" - logical
+"file" - content to output as a file
+"filename" - logical, its name
 "reply" - messageID to reply to
 
 #+END_SRC
