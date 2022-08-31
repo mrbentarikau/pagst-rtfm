@@ -251,6 +251,7 @@ weekNumber
 decodeStringToHex
 hexToDecimal
 json
+jsonToSdict
 str
 structToSdict
 toByte
