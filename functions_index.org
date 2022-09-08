@@ -245,6 +245,7 @@ loadLocation
 newDate
 parseTime
 snowflakeToTime
+timestampToTime
 weekNumber
 
 # Type Conversion
