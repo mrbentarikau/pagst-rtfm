@@ -105,6 +105,7 @@ editNickname
 getBotCount
 getMember
 getMemberCount
+getMemberTimezone
 hasPermissions
 onlineCount
 setMemberTimeOut
@@ -245,7 +246,6 @@ loadLocation
 newDate
 parseTime
 snowflakeToTime
-timestampToTime
 weekNumber
 
 # Type Conversion

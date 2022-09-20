@@ -184,6 +184,7 @@ Shift operators implement arithmetic shifts if the left operand is a signed inte
 | ~hasPermissions~ arg                        | Returns true/false on whether triggering user has the permission bit /int64/.                                                               |            |
 | ~getBotCount~                               | Returns /int/ count of members who are as .User.Bot.                                                                                        | \checkmark |
 | ~getMember~ mention\slash{}userID           | Function returns Member object. ~{{(getMember .User.ID).JoinedAt}}~ is the same as ~{{.Member.JoinedAt}}~.                                  |            |
+| ~getMemberTimezone~ userID                  | Returns /*time.Location/ for targeted user's timezone if setz was used, otherwise UTC.                                                      | \checkmark |
 | ~getMemberCount~                            | Returns /int/ count of members who are not .User.Bot.                                                                                       | \checkmark |
 | ~onlineCount~                               | Returns the count of online users/members on current server.                                                                                |            |
 | ~targetHasPermissions~ memberID arg         | Returns true/false on whether targeted member has the permission bit /int64/.                                                               |            |
