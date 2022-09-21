@@ -167,6 +167,7 @@ execAdmin
 getAuditLogEntries
 hasPrefix
 hasSuffix
+getApplicationCommands
 humanizeThousands
 in
 inFold
