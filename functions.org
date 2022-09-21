@@ -471,6 +471,7 @@ Discord Timestamp Styles referenced [[https://discord.com/developers/docs/refere
 | ~currentUserAgeHuman~         | The account age of the current user in more human readable format.                                                                             |            |
 | ~currentUserAgeMinutes~       | The account age of the current user in minutes.                                                                                                |            |
 | ~currentUserCreated~          | Returns value of type /time.Time/ and shows when the current user was created.                                                                 |            |
+| ~getUser~                     | Returns user object from ID.                                                                                                                   | \checkmark |
 | ~pastNicknames~ userID offset | Same as ~pastUsernames~.                                                                                                                       |            |
 | ~pastUsernames~ userID offset | Returns a slice of type /[ ]*logs.CCNameChange/ having fields .Name and .Time of previous 15 usernames and skips ~offset~ number in that list. |            |
 | ~userArg~ mention/userID      | Function that can be used to retrieve .User object from a mention or userID. ~userArg~ has no call limits. call-limits.                        | \checkmark |
