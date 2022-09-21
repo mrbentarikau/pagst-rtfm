@@ -132,6 +132,7 @@ deleteResponse
 deleteTrigger
 editMessage
 editMessageNoEscape
+getAllMessageReactions
 getMessage
 lastMessages
 pinMessage
