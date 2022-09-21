@@ -187,6 +187,7 @@ Shift operators implement arithmetic shifts if the left operand is a signed inte
 | ~getMemberTimezone~ (userID)                | Returns /*time.Location/ for triggering or targeted (from argument) member's timezone if ~setz~ was used, otherwise UTC.                    | \checkmark |
 | ~getMemberCount~                            | Returns /int/ count of members who are not .User.Bot.                                                                                       | \checkmark |
 | ~onlineCount~                               | Returns the count of online users/members on current server.                                                                                |            |
+| ~setMemberTimeout~ userID (delay)           | Times member out, default delay is 60 sec.                                                                                                  | \checkmark |
 | ~targetHasPermissions~ memberID arg         | Returns true/false on whether targeted member has the permission bit /int64/.                                                               |            |
 [[#table-of-contents][back to TOC]]
 * Mentions
