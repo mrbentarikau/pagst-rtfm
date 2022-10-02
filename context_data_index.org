@@ -50,6 +50,7 @@
 .MfaLevel
 .Name
 .OwnerID
+.PreferredLocale
 .Roles
 .Splash
 .SystemChannelID
@@ -100,7 +101,7 @@
 .ReferencedMessage
 .Stickers
 .Timestamp
-.Tts
+.TTS
 .Type
 .WebhookID
 
